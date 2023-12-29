@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Sandha_and_CompanyModelStoreContainer" CdmEntityContainer="Sandha_and_CompanyEntities">
+    <EntitySetMapping Name="exceptionlogs">
+      <EntityTypeMapping TypeName="Sandha_and_CompanyModel.exceptionlog">
+        <MappingFragment StoreEntitySet="exceptionlog">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+          <ScalarProperty Name="level" ColumnName="level" />
+          <ScalarProperty Name="logger" ColumnName="logger" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="exception" ColumnName="exception" />
+          <ScalarProperty Name="stacktrace" ColumnName="stacktrace" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExceptionLoggers">
+      <EntityTypeMapping TypeName="Sandha_and_CompanyModel.ExceptionLogger">
+        <MappingFragment StoreEntitySet="ExceptionLogger">
+          <ScalarProperty Name="ExceptionId" ColumnName="ExceptionId" />
+          <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+          <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="ExceptionStackTrack" ColumnName="ExceptionStackTrack" />
+          <ScalarProperty Name="ExceptionLogTime" ColumnName="ExceptionLogTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mst_Roles">
+      <EntityTypeMapping TypeName="Sandha_and_CompanyModel.Mst_Roles">
+        <MappingFragment StoreEntitySet="Mst_Roles">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mst_User">
+      <EntityTypeMapping TypeName="Sandha_and_CompanyModel.Mst_User">
+        <MappingFragment StoreEntitySet="Mst_User">
+          <ScalarProperty Name="RememberMe" ColumnName="RememberMe" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="usrRoleId" ColumnName="usrRoleId" />
+          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Validate_User" FunctionName="Sandha_and_CompanyModel.Store.Validate_User" />
+    <EntitySetMapping Name="Mst_Menu">
+      <EntityTypeMapping TypeName="Sandha_and_CompanyModel.Mst_Menu">
+        <MappingFragment StoreEntitySet="Mst_Menu">
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="Menu_Name" ColumnName="Menu_Name" />
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mst_Sub_Menu">
+      <EntityTypeMapping TypeName="Sandha_and_CompanyModel.Mst_Sub_Menu">
+        <MappingFragment StoreEntitySet="Mst_Sub_Menu">
+          <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+          <ScalarProperty Name="Sub_Menu_Name" ColumnName="Sub_Menu_Name" />
+          <ScalarProperty Name="Sub_MenuID" ColumnName="Sub_MenuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Mst_ComplaintType">
+      <EntityTypeMapping TypeName="Sandha_and_CompanyModel.Mst_ComplaintType">
+        <MappingFragment StoreEntitySet="Mst_ComplaintType">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ComplaintTyoe" ColumnName="ComplaintTyoe" />
+          <ScalarProperty Name="ComplaintTypeId" ColumnName="ComplaintTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

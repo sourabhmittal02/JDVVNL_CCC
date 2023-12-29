@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbRPDAV1ModelStoreContainer" CdmEntityContainer="TestEntities">
+    <EntitySetMapping Name="exceptionlogs">
+      <EntityTypeMapping TypeName="dbRPDAV1Model.exceptionlog">
+        <MappingFragment StoreEntitySet="exceptionlog">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+          <ScalarProperty Name="level" ColumnName="level" />
+          <ScalarProperty Name="logger" ColumnName="logger" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="exception" ColumnName="exception" />
+          <ScalarProperty Name="stacktrace" ColumnName="stacktrace" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExceptionLoggers">
+      <EntityTypeMapping TypeName="dbRPDAV1Model.ExceptionLogger">
+        <MappingFragment StoreEntitySet="ExceptionLogger">
+          <ScalarProperty Name="ExceptionId" ColumnName="ExceptionId" />
+          <ScalarProperty Name="ExceptionMessage" ColumnName="ExceptionMessage" />
+          <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="ExceptionStackTrack" ColumnName="ExceptionStackTrack" />
+          <ScalarProperty Name="ExceptionLogTime" ColumnName="ExceptionLogTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="dbRPDAV1Model.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="RememberMe" ColumnName="RememberMe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="DeleteRecordByJobNo" FunctionName="dbRPDAV1Model.Store.DeleteRecordByJobNo" />
+    <FunctionImportMapping FunctionImportName="GetDataforCashSlipByVerfId" FunctionName="dbRPDAV1Model.Store.GetDataforCashSlipByVerfId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="dbRPDAV1Model.GetDataforCashSlipByVerfId_Result">
+          <ScalarProperty Name="Vech_Reg_No" ColumnName="Vech_Reg_No" />
+          <ScalarProperty Name="Vech_Holder_name" ColumnName="Vech_Holder_name" />
+          <ScalarProperty Name="VarfJobNo" ColumnName="VarfJobNo" />
+          <ScalarProperty Name="VarificationID" ColumnName="VarificationID" />
+          <ScalarProperty Name="rate" ColumnName="rate" />
+          <ScalarProperty Name="ReceiptFees" ColumnName="ReceiptFees" />
+          <ScalarProperty Name="FurtherReceipts" ColumnName="FurtherReceipts" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="TotalChamberCapacity" ColumnName="TotalChamberCapacity" />
+          <ScalarProperty Name="RpdaCashRcptName" ColumnName="RpdaCashRcptName" />
+          <ScalarProperty Name="RpdaCashSignature" ColumnName="RpdaCashSignature" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetRpdaCashSlipData" FunctionName="dbRPDAV1Model.Store.GetRpdaCashSlipData" />
+    <FunctionImportMapping FunctionImportName="Import_CashRpda" FunctionName="dbRPDAV1Model.Store.Import_CashRpda" />
+    <FunctionImportMapping FunctionImportName="Import_Registration" FunctionName="dbRPDAV1Model.Store.Import_Registration" />
+    <FunctionImportMapping FunctionImportName="Import_Varification" FunctionName="dbRPDAV1Model.Store.Import_Varification" />
+    <FunctionImportMapping FunctionImportName="ImportChildTable" FunctionName="dbRPDAV1Model.Store.ImportChildTable" />
+    <FunctionImportMapping FunctionImportName="Insert_User" FunctionName="dbRPDAV1Model.Store.Insert_User" />
+    <FunctionImportMapping FunctionImportName="insert1000record" FunctionName="dbRPDAV1Model.Store.insert1000record" />
+    <FunctionImportMapping FunctionImportName="ValidateUser" FunctionName="dbRPDAV1Model.Store.Validate_User" />
+  </EntityContainerMapping>
+</Mapping>

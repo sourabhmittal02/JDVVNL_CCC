@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbRPDAV1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="exceptionlog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="level" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="logger" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="message" Type="String" MaxLength="3600" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="exception" Type="String" MaxLength="3600" FixedLength="false" Unicode="false" />
+    <Property Name="stacktrace" Type="String" MaxLength="3600" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ExceptionLogger">
+    <Key>
+      <PropertyRef Name="ExceptionId" />
+    </Key>
+    <Property Name="ExceptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ControllerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ActionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ExceptionStackTrack" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ExceptionLogTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+    <Property Name="RememberMe" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="TestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="exceptionlogs" EntityType="Self.exceptionlog" />
+    <EntitySet Name="ExceptionLoggers" EntityType="Self.ExceptionLogger" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <FunctionImport Name="DeleteRecordByJobNo" ReturnType="Collection(String)">
+      <Parameter Name="JOBNO" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetDataforCashSlipByVerfId" ReturnType="Collection(dbRPDAV1Model.GetDataforCashSlipByVerfId_Result)">
+      <Parameter Name="VerfId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="GetRpdaCashSlipData">
+      <Parameter Name="Fromdate" Mode="In" Type="DateTime" />
+      <Parameter Name="Todate" Mode="In" Type="DateTime" />
+      <Parameter Name="RegNo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Import_CashRpda" />
+    <FunctionImport Name="Import_Registration" />
+    <FunctionImport Name="Import_Varification" />
+    <FunctionImport Name="ImportChildTable" />
+    <FunctionImport Name="Insert_User" ReturnType="Collection(Int32)">
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="insert1000record" />
+    <FunctionImport Name="ValidateUser" ReturnType="Collection(Int32)">
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetDataforCashSlipByVerfId_Result">
+    <Property Type="String" Name="Vech_Reg_No" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Vech_Holder_name" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="VarfJobNo" Nullable="false" />
+    <Property Type="Int32" Name="VarificationID" Nullable="false" />
+    <Property Type="Decimal" Name="rate" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="ReceiptFees" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="FurtherReceipts" Nullable="false" />
+    <Property Type="Decimal" Name="Total" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="TotalChamberCapacity" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="RpdaCashRcptName" Nullable="false" MaxLength="1" />
+    <Property Type="String" Name="RpdaCashSignature" Nullable="false" MaxLength="1" />
+  </ComplexType>
+</Schema>

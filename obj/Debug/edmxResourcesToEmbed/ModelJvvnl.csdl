@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Sandha_and_CompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="exceptionlog">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="timestamp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="level" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="logger" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="message" Type="String" MaxLength="3600" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="exception" Type="String" MaxLength="3600" FixedLength="false" Unicode="false" />
+    <Property Name="stacktrace" Type="String" MaxLength="3600" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="ExceptionLogger">
+    <Key>
+      <PropertyRef Name="ExceptionId" />
+    </Key>
+    <Property Name="ExceptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ControllerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ActionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ExceptionStackTrack" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ExceptionLogTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Mst_Roles">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Mst_User" Relationship="Self.FK_Mst_User_Mst_Roles" FromRole="Mst_Roles" ToRole="Mst_User" />
+    <NavigationProperty Name="Mst_Menu" Relationship="Sandha_and_CompanyModel.FK_Mst_Menu_Mst_Roles" FromRole="Mst_Roles" ToRole="Mst_Menu" />
+  </EntityType>
+  <EntityType Name="Mst_User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="usrRoleId" Type="Int32" />
+    <Property Name="LoginId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Mst_Roles" Relationship="Self.FK_Mst_User_Mst_Roles" FromRole="Mst_User" ToRole="Mst_Roles" />
+    <Property Name="RememberMe" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Mst_User_Mst_Roles">
+    <End Role="Mst_Roles" Type="Self.Mst_Roles" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Mst_User" Type="Self.Mst_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mst_Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Mst_User">
+        <PropertyRef Name="usrRoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Sandha_and_CompanyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="exceptionlogs" EntityType="Self.exceptionlog" />
+    <EntitySet Name="ExceptionLoggers" EntityType="Self.ExceptionLogger" />
+    <EntitySet Name="Mst_Roles" EntityType="Self.Mst_Roles" />
+    <EntitySet Name="Mst_User" EntityType="Self.Mst_User" />
+    <AssociationSet Name="FK_Mst_User_Mst_Roles" Association="Self.FK_Mst_User_Mst_Roles">
+      <End Role="Mst_Roles" EntitySet="Mst_Roles" />
+      <End Role="Mst_User" EntitySet="Mst_User" />
+    </AssociationSet>
+    <FunctionImport Name="Validate_User" ReturnType="Collection(Int32)">
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Mst_Menu" EntityType="Sandha_and_CompanyModel.Mst_Menu" />
+    <EntitySet Name="Mst_Sub_Menu" EntityType="Sandha_and_CompanyModel.Mst_Sub_Menu" />
+    <AssociationSet Name="FK_Mst_Menu_Mst_Roles" Association="Sandha_and_CompanyModel.FK_Mst_Menu_Mst_Roles">
+      <End Role="Mst_Roles" EntitySet="Mst_Roles" />
+      <End Role="Mst_Menu" EntitySet="Mst_Menu" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mst_Sub_Menu_Mst_Menu" Association="Sandha_and_CompanyModel.FK_Mst_Sub_Menu_Mst_Menu">
+      <End Role="Mst_Menu" EntitySet="Mst_Menu" />
+      <End Role="Mst_Sub_Menu" EntitySet="Mst_Sub_Menu" />
+    </AssociationSet>
+    <EntitySet Name="Mst_ComplaintType" EntityType="Sandha_and_CompanyModel.Mst_ComplaintType" />
+  </EntityContainer>
+  <EntityType Name="Mst_Menu">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Menu_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="RoleID" Type="Int32" />
+    <NavigationProperty Name="Mst_Roles" Relationship="Sandha_and_CompanyModel.FK_Mst_Menu_Mst_Roles" FromRole="Mst_Menu" ToRole="Mst_Roles" />
+    <NavigationProperty Name="Mst_Sub_Menu" Relationship="Sandha_and_CompanyModel.FK_Mst_Sub_Menu_Mst_Menu" FromRole="Mst_Menu" ToRole="Mst_Sub_Menu" />
+  </EntityType>
+  <EntityType Name="Mst_Sub_Menu">
+    <Key>
+      <PropertyRef Name="Sub_MenuID" />
+    </Key>
+    <Property Name="Sub_MenuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sub_Menu_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MenuID" Type="Int32" />
+    <NavigationProperty Name="Mst_Menu" Relationship="Sandha_and_CompanyModel.FK_Mst_Sub_Menu_Mst_Menu" FromRole="Mst_Sub_Menu" ToRole="Mst_Menu" />
+  </EntityType>
+  <Association Name="FK_Mst_Menu_Mst_Roles">
+    <End Type="Sandha_and_CompanyModel.Mst_Roles" Role="Mst_Roles" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="Sandha_and_CompanyModel.Mst_Menu" Role="Mst_Menu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mst_Roles">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Mst_Menu">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mst_Sub_Menu_Mst_Menu">
+    <End Type="Sandha_and_CompanyModel.Mst_Menu" Role="Mst_Menu" Multiplicity="1" />
+    <End Type="Sandha_and_CompanyModel.Mst_Sub_Menu" Role="Mst_Sub_Menu" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Mst_Menu">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="Mst_Sub_Menu">
+        <PropertyRef Name="Sub_MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Mst_ComplaintType">
+    <Key>
+      <PropertyRef Name="ComplaintTypeId" />
+    </Key>
+    <Property Name="ComplaintTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ComplaintTyoe" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
+</Schema>

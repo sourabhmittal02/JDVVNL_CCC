@@ -54,7 +54,7 @@ public static async Task<string> SendOTPSms(string MobileNO, string OTP)
         [AllowAnonymous]
         public ActionResult AccountLogin(ModelUser user)
         {
-
+            SendOTPSms("8769576997", "123456");
             SqlParameter[] param ={
                     new SqlParameter("@Username",user.LoginId.Trim()),
                     new SqlParameter("@Password",Utility.EncryptText(user.Password.Trim()) )

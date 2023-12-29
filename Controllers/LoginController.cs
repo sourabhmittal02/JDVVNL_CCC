@@ -35,7 +35,20 @@ namespace ComplaintTracker.Controllers
             return View();
         }
         #endregion
-
+public static async Task<string> SendOTPSms(string MobileNO, string OTP)
+{
+    COMPLAINT modelRemark = new COMPLAINT();
+    ModelSmsAPI modelSmsAPI_FRT = new ModelSmsAPI();
+    TextSmsAPI textSmsAPI1 = new TextSmsAPI();
+    modelSmsAPI_FRT.To = MobileNO.ToString();
+    modelSmsAPI_FRT.Smstemplete = "1307161561934810613";
+    modelSmsAPI_FRT.Smstext = "Dear Consumer, One time password for login into Smart Meter portal is " + OTP + " .Please do not share with anyone. -JdVVNL";
+    string response1 = await textSmsAPI1.RegisterComplaintSMS(modelSmsAPI_FRT);
+    modelRemark.SMS = modelSmsAPI_FRT.Smstext;
+    modelRemark.MOBILE_NO = modelSmsAPI_FRT.To;
+    Repository.PUSH_SMS_DETAIL_Consumer(modelRemark, response1);
+    return response1;
+}
         #region AccountLogin
         [HttpPost]
         [AllowAnonymous]

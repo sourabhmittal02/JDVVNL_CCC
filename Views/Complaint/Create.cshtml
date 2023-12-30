@@ -87,6 +87,8 @@
             $('#ddlOfficecode').change(function () {
                 var selectedOffice = $("#ddlOfficecode").val();
                 if (selectedOffice.length > 0) {
+
+                    $('#SDO_CODE').val(selectedOffice);
                     filljendd(selectedOffice);
                     checkPowerOutage(selectedOffice);
                 }

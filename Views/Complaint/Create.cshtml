@@ -90,6 +90,8 @@
 
                     $('#SDO_CODE').val(selectedOffice);
                     filljendd(selectedOffice);
+
+                    fillArea(selectedOffice);
                     checkPowerOutage(selectedOffice);
                 }
             });
@@ -135,7 +137,25 @@
                     }
                 });
             }
+            function fillArea(selectedCountry) {
 
+                $.ajax({
+                    type: "GET",
+                    url: '/Complaint/GetAreaCode',
+                    data: { parentOfficeId: selectedCountry },
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        if (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                $('#AREA_CODE').val(data[i].AreaCode);
+                            }
+                            return;
+                        } else {
+                            alert('error');
+                        }
+                    }
+                });
+            }
 
 
             $('#ddlComplaintType').change(function () {

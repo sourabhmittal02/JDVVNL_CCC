@@ -112,7 +112,27 @@ namespace ComplaintTracker.Controllers
 
             return PartialView("_editComplaint", cOMPLAINT);
         }
+        [HttpGet]
+        public ActionResult GetAreaCode(int parentOfficeId)
+        {
+            List<ModelAreaCode> lstOfficeCode = new List<ModelAreaCode>();
+            ModelAreaCode objBlank = new ModelAreaCode();
+            //objBlank.OfficeId = "0";
+            //objBlank.OfficeCode = "Select JEn Area";
+            //lstOfficeCode.Insert(0, objBlank);
 
+            SqlParameter[] param ={
+                    new SqlParameter("@Parent_OfficeId",parentOfficeId) };
+            DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "GETAREACODE", param);
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                objBlank = new ModelAreaCode();
+                objBlank.AreaCode = dr.ItemArray[0].ToString();
+                lstOfficeCode.Add(objBlank);
+            }
+            return Json(lstOfficeCode, JsonRequestBehavior.AllowGet);
+        }
         [HttpPost]
         public async Task<ActionResult> EditComplaint(COMPLAINT modelComplaint)
         {

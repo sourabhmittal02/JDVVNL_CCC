@@ -271,7 +271,7 @@ namespace ComplaintTracker.Controllers
                 Session["UserID"] = ds.Tables[0].Rows[0]["USER_ID"].ToString();
                 Session["User_Name"] = ds.Tables[0].Rows[0]["USER_Name"].ToString();
                 Session["OFFICE_ID"] = ds.Tables[0].Rows[0]["OFFICE_ID"].ToString();
-                //Session["Roll_ID"] = ds.Tables[0].Rows[0]["ROLE_ID"].ToString();
+                Session["Roll_ID"] = ds.Tables[0].Rows[0]["ROLE_ID"].ToString();
                 Session["Roll_ID"] = "5";
                 Session["Roll_Name"] = ds.Tables[0].Rows[0]["ROLE_NAME"].ToString();
                 Session["Mobile_No"] = ds.Tables[0].Rows[0]["MOBILE_NO"].ToString();
@@ -376,9 +376,66 @@ namespace ComplaintTracker.Controllers
         {
             if (loginOTP.otpforLogin == "123456")
             {
+                SqlParameter[] param ={
+                    new SqlParameter("@Username","Outbound"),
+                    new SqlParameter("@Password",Utility.EncryptText("a"))
+                                       };
+
+                DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "Validate_User", param);
+
+            
+
+                List<ModelMenu> lstMenu = new List<ModelMenu>();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    string submenuId = dr.ItemArray[9].ToString(); //SubMenuId
+                    if (string.IsNullOrEmpty(submenuId))
+                    {
+                        //Main Menu
+                        ModelMenu modelMenu = new ModelMenu();
+                        modelMenu.MainMenuName = dr.ItemArray[8].ToString(); //MenuName
+                        modelMenu.MainMenuViewURL = dr.ItemArray[11].ToString(); //Url
+                        lstMenu.Add(modelMenu);
+                    }
+                    else
+                    {
+                        List<ModelSubMenu> lstsubMenu = new List<ModelSubMenu>();
+
+                        if (lstMenu.Where(x => x.MainMenuName == dr.ItemArray[8].ToString()).Count() <= 0)
+                        {
+
+                            ModelMenu modelMenu = new ModelMenu();
+                            modelMenu.MainMenuName = dr.ItemArray[8].ToString();
+
+                            foreach (DataRow drsubMenu in ds.Tables[0].Rows)
+                            {
+
+                                if (!string.IsNullOrEmpty(submenuId) && modelMenu.MainMenuName == drsubMenu.ItemArray[8].ToString())
+                                {
+                                    ModelSubMenu modelSubMenu = new ModelSubMenu();
+                                    modelSubMenu.SubMenuName = drsubMenu.ItemArray[10].ToString(); //SubMenuName
+                                    modelSubMenu.SubMenuViewURL = drsubMenu.ItemArray[11].ToString(); //Url
+
+                                    lstsubMenu.Add(modelSubMenu);
+                                    modelMenu.ListSubMenu = lstsubMenu;
+
+                                }
+
+                            }
+                            lstMenu.Add(modelMenu);
+
+                        }
+                    }
+                }
+                TempData["loginmsg"] = "Login Successfull.";
+                Session["ModelMenu"] = lstMenu;
+
+
+
                 var urlBuilder = new UrlHelper(Request.RequestContext);
                 var url = urlBuilder.Action("Index", "Dashboard");
                 return Json(new { status = "success", redirectUrl = url }, JsonRequestBehavior.AllowGet);
+
             }
             else
             {

@@ -73,9 +73,10 @@
                 swal("error in saving", "error");
             }
             else {
-                window.location.href = result.redirectUrl;
-                $("#AssignPopup").modal('hide');
-                swal("Saved Successfully", "success");
+                alert(result.redirectUrl);
+                window.location.href = 'http://localhost/JDVVNL_CCC/Dashboard/Index';
+                //$("#AssignPopup").modal('hide');
+                //swal("Saved Successfully", "success");
             }
         },
         error: function (data) {

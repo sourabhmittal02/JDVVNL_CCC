@@ -292,12 +292,8 @@ namespace ComplaintTracker.Controllers
                         LoginOTP obj = new LoginOTP();
                         obj.LoginId = Convert.ToString(Session["User_Name"]);
 
-
-                        //string otpforuser = Repository.GenerateOtp(Convert.ToString(@Session["Mobile_No"]));
-                        //string otpforuser = "";
-
-                        //await SendOTPSms(mobileNo, otpforuser);
-                        //obj.otpforLogin = await SendOTPSms(Convert.ToString(@Session["Mobile_No"]), otpforuser);
+                        string otpforuser = Repository.GenerateOtp(Convert.ToString(@Session["Mobile_No"]));
+                        obj.otpforLogin = await SendOTPSms(Convert.ToString(@Session["Mobile_No"]), otpforuser);
                         return PartialView("_otpPopup", obj);
                         #endregion
                     }
@@ -374,7 +370,9 @@ namespace ComplaintTracker.Controllers
         [HttpGet]
         public JsonResult ValidateOTP(LoginOTP  loginOTP)
         {
-            if (loginOTP.otpforLogin == "123456")
+            string response = Repository.ValidateOTP(Convert.ToString(Session["Mobile_No"]), loginOTP.otpforLogin);
+
+            if (response=="1")
             {
                 SqlParameter[] param ={
                     new SqlParameter("@Username","Outbound"),

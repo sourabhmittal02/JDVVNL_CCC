@@ -375,7 +375,7 @@ namespace ComplaintTracker.Controllers
             if (response=="1")
             {
                 SqlParameter[] param ={
-                    new SqlParameter("@Username",Convert.ToString(Session["UserID"])),
+                    new SqlParameter("@Username",Convert.ToString(Session["User_Name"])),
                     new SqlParameter("@Password",Convert.ToString(Session["pwd"]))
                     };
 

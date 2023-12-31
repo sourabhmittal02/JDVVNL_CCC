@@ -3537,7 +3537,7 @@ namespace ComplaintTracker.DAL
                 DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "GenerateOTP", param);
                 if (ds != null)
                 {
-                    if (ds.Tables.Count>1)
+                    if (ds.Tables.Count>0)
                     {
                         return Convert.ToString(ds.Tables[0].Rows[0][0]);
                     }
@@ -3563,7 +3563,7 @@ namespace ComplaintTracker.DAL
                 DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "ValidateOTP", param);
                 if (ds != null)
                 {
-                    if (ds.Tables.Count > 1)
+                    if (ds.Tables.Count > 0)
                     {
                         return Convert.ToString(ds.Tables[0].Rows[0][0]);
                     }

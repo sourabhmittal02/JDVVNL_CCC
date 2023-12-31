@@ -276,7 +276,7 @@ namespace ComplaintTracker.Controllers
                 Session["Roll_Name"] = ds.Tables[0].Rows[0]["ROLE_NAME"].ToString();
                 Session["Mobile_No"] = ds.Tables[0].Rows[0]["MOBILE_NO"].ToString();
                 Session["LoginType"] = "Active";
-
+                Session["pwd"] = Utility.EncryptText(user.Password.Trim());
                 FormsAuthentication.SetAuthCookie(user.LoginId, false);
                 if (!string.IsNullOrEmpty(Request.Form["ReturnUrl"]))
                 {
@@ -293,7 +293,7 @@ namespace ComplaintTracker.Controllers
                         obj.LoginId = Convert.ToString(Session["User_Name"]);
 
                         string otpforuser = Repository.GenerateOtp(Convert.ToString(@Session["Mobile_No"]));
-                        obj.otpforLogin = await SendOTPSms(Convert.ToString(@Session["Mobile_No"]), otpforuser);
+                        await SendOTPSms(Convert.ToString(@Session["Mobile_No"]), otpforuser);
                         return PartialView("_otpPopup", obj);
                         #endregion
                     }
@@ -375,9 +375,9 @@ namespace ComplaintTracker.Controllers
             if (response=="1")
             {
                 SqlParameter[] param ={
-                    new SqlParameter("@Username","Outbound"),
-                    new SqlParameter("@Password",Utility.EncryptText("a"))
-                                       };
+                    new SqlParameter("@Username",Convert.ToString(Session["UserID"])),
+                    new SqlParameter("@Password",Convert.ToString(Session["pwd"]))
+                    };
 
                 DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "Validate_User", param);
 
@@ -440,5 +440,12 @@ namespace ComplaintTracker.Controllers
                 return Json(new { status = "failure", redirectUrl = string.Empty }, JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpGet]
+        public Task<JsonResult> RegenerateOTP(ModelUser user) 
+        {
+            string otpforuser = Repository.GenerateOtp(Convert.ToString(@Session["Mobile_No"]));
+            return Task.FromResult(Json(new { status = "success", newOTP = otpforuser }, JsonRequestBehavior.AllowGet));
+        }
+
     }
 }

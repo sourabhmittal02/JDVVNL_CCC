@@ -4,55 +4,7 @@
 @section scripts{
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 }
-@*<script type="text/javascript">
 
-
-        $(document).ready(function () {
-            $(function () {
-
-
-            });
-            //$('#submitComplaint').click(function () {
-            //    alert('Hi');
-            //});
-
-
-
-
-
-             function Validate() {
-                alert();
-            }
-            //function Validate() {
-            //    var TeamDetailPostBackURL = 'http://localhost/JDVVNL_CCC/Login/ValidateOTP';
-            //    var loginOTP = {
-            //        otpforLogin : $("#otpforLogin").val()
-            //    }
-            //    $.ajax({
-            //        type: "POST",
-            //        url: TeamDetailPostBackURL,
-            //        contentType: "application/json; charset=utf-8",
-            //        datatype: "json",
-            //        data: loginOTP,
-            //        success: function (data) {
-            //            if (data.status === "failure") {
-            //                $("#AssignPopup").modal('hide');
-            //                swal("error in saving", "error");
-            //            }
-            //            else {
-            //                $("#AssignPopup").modal('hide');
-            //                swal("Saved Successfully", "success");
-            //            }
-            //        },
-            //        error: function (data) {
-            //            $("#AssignPopup").modal('hide');
-            //            swal("Dynamic content load failed.!", "error");
-            //        }
-            //    });
-            //}
-
-
-    </script>*@
 
 <script type="text/javascript">
     function Validate() {
@@ -70,13 +22,13 @@
         success: function (result) {
             if (result.status === "failure") {
                 $("#AssignPopup").modal('hide');
-                swal("error in saving", "error");
+                swal("Invalid OTP", "error");
             }
             else {
                 alert(result.redirectUrl);
-                window.location.href = 'http://localhost/JDVVNL_CCC/Dashboard/Index';
-                //$("#AssignPopup").modal('hide');
-                //swal("Saved Successfully", "success");
+                window.location.href = result.redirectUrl;
+                $("#AssignPopup").modal('hide');
+                swal("Saved Successfully", "success");
             }
         },
         error: function (data) {
@@ -85,6 +37,32 @@
         }
     });
 
+    }
+
+    function RegenerateOTP() {
+        $("#otpforLogin").val('');
+        var TeamDetailPostBackURL = 'http://localhost/JDVVNL_CCC/Login/RegenerateOTP';
+        $.ajax({
+            type: "GET",
+            url: TeamDetailPostBackURL,
+            contentType: "application/json; charset=utf-8",
+            datatype: "json",
+            data: null,
+            success: function (result) {
+                if (result.status === "success") {
+                    swal("Generated Successfully", "success");
+                    
+                }
+                else {
+
+                    swal("error in generating", "error");
+                }
+            },
+            error: function (data) {
+                $("#AssignPopup").modal('hide');
+                swal("Dynamic content load failed.!", "error");
+            }
+        });
     }
 
 </script>
@@ -123,6 +101,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="validateOTP" onclick="Validate()">Update</button>
+                <button type="button" class="btn btn-warning" onclick="RegenerateOTP()" >Resend OTP</button>
                 @*<button type="submit" class="btn btn-success" >Validate OTP</button>*@
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</button>
             </div>

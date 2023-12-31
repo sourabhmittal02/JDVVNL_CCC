@@ -272,7 +272,7 @@ namespace ComplaintTracker.Controllers
                 Session["User_Name"] = ds.Tables[0].Rows[0]["USER_Name"].ToString();
                 Session["OFFICE_ID"] = ds.Tables[0].Rows[0]["OFFICE_ID"].ToString();
                 Session["Roll_ID"] = ds.Tables[0].Rows[0]["ROLE_ID"].ToString();
-                Session["Roll_ID"] = "5";
+                //Session["Roll_ID"] = "5";
                 Session["Roll_Name"] = ds.Tables[0].Rows[0]["ROLE_NAME"].ToString();
                 Session["Mobile_No"] = ds.Tables[0].Rows[0]["MOBILE_NO"].ToString();
                 Session["LoginType"] = "Active";

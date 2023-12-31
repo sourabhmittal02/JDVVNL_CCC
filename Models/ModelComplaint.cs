@@ -244,4 +244,11 @@ namespace ComplaintTracker.Models
         public string ClosedBy { get; set; }
 
     }
-}
+
+    public class LoginOTP
+    {
+        public string otpforLogin { get; set; }
+        public string LoginId { get; set; }
+
+    }
+  }

@@ -3527,5 +3527,60 @@ namespace ComplaintTracker.DAL
 
         #endregion
 
+
+        #region OTP
+        public static string GenerateOtp(string mobileNo)
+        {
+            try
+            {
+                SqlParameter[] param = { new SqlParameter("@RegMobileNo", mobileNo) };                
+                DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "GenerateOTP", param);
+                if (ds != null)
+                {
+                    if (ds.Tables.Count>1)
+                    {
+                        return Convert.ToString(ds.Tables[0].Rows[0][0]);
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
+                return string.Empty;
+            }
+            catch
+            {
+
+                return string.Empty;
+            }
+        }
+
+        public static string ValidateOTP(string mobileNo,string userOtp)
+        {
+            try
+            {
+                SqlParameter[] param = { new SqlParameter("@RegMobileNo", mobileNo) ,new SqlParameter("@userOtp", userOtp)};
+                DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "ValidateOTP", param);
+                if (ds != null)
+                {
+                    if (ds.Tables.Count > 1)
+                    {
+                        return Convert.ToString(ds.Tables[0].Rows[0][0]);
+                    }
+                    else
+                    {
+                        return "0";
+                    }
+                }
+                return "0";
+            }
+            catch
+            {
+
+                return "0";
+            }
+        }
+        #endregion
+
     }
 }

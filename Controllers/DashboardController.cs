@@ -24,7 +24,7 @@ using System.Web.Security;
 namespace ComplaintTracker.Controllers
 {
     //[ExceptionHandle]
-    [Authorize]
+    //[Authorize]
     //[Log]
     public class DashboardController : Controller
     {

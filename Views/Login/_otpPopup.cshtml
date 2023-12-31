@@ -21,13 +21,12 @@
         data: loginOTP,
         success: function (result) {
             if (result.status === "failure") {
-                $("#AssignPopup").modal('hide');
+                /*$("#AssignPopup").modal('hide');*/
                 swal("Invalid OTP", "error");
             }
             else {
-                alert(result.redirectUrl);
                 window.location.href = result.redirectUrl;
-                $("#AssignPopup").modal('hide');
+/*                $("#AssignPopup").modal('hide');*/
                 swal("Saved Successfully", "success");
             }
         },
@@ -100,8 +99,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="validateOTP" onclick="Validate()">Update</button>
-                <button type="button" class="btn btn-warning" onclick="RegenerateOTP()" >Resend OTP</button>
+                <button type="button" class="btn btn-success" id="validateOTP" onclick="Validate()">Validate</button>
+                <button type="button" class="btn btn-warning" onclick="RegenerateOTP()" >Resend</button>
                 @*<button type="submit" class="btn btn-success" >Validate OTP</button>*@
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</button>
             </div>

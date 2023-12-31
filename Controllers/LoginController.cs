@@ -371,7 +371,7 @@ namespace ComplaintTracker.Controllers
 
         }
 
-        [HttpPost]
+        [HttpGet]
         public JsonResult ValidateOTP(LoginOTP  loginOTP)
         {
             if (loginOTP.otpforLogin == "123456")

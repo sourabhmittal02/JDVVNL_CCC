@@ -86,7 +86,7 @@
     var ShowOTP = function () {
     var TeamDetailPostBackURL = 'http://localhost/JDVVNL_CCC/Login/ShowLoginOTP';
         var dataType = 'application/json; charset=utf-8';
-        var loginOTP = {
+        var user = {
             LoginId: $('#LoginId').val(),
             Password: $('#Password').val(),
         }
@@ -94,7 +94,7 @@
             type: "GET",
             url: TeamDetailPostBackURL,
             contentType: "application/json; charset=utf-8",
-            "data": loginOTP,
+            "data": user,
             datatype: "json",
             success: function (result) {
                 if (result.status === -1) {

@@ -4,86 +4,129 @@
 @section scripts{
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 }
-<script type="text/javascript">
+@*<script type="text/javascript">
 
 
-    $(document).ready(function () {
-        $(function () {
+        $(document).ready(function () {
+            $(function () {
 
 
-        });
-        //$('#submitComplaint').click(function () {
-        //    alert('Hi');
-        //});
-
-
-        function Validate() {
-            var TeamDetailPostBackURL = 'http://localhost/JDVVNL_CCC/Login/ValidateOTP';
-            var model = new Object();
-            model.otpforLogin = $("#otpforLogin").val();
-            $.ajax({
-                type: "POST",
-                url: TeamDetailPostBackURL,
-                contentType: "application/json; charset=utf-8",
-                datatype: "json",
-                data: model,
-                success: function (data) {
-                    if (data.status === "failure") {
-                        $("#AssignPopup").modal('hide');
-                        swal("error in saving", "error");
-                    }
-                    else {
-                        $("#AssignPopup").modal('hide');
-                        swal("Saved Successfully", "success");
-                    }
-                },
-                error: function (data) {
-                    $("#AssignPopup").modal('hide');
-                    swal("Dynamic content load failed.!", "error");
-                }
             });
+            //$('#submitComplaint').click(function () {
+            //    alert('Hi');
+            //});
+
+
+
+
+
+             function Validate() {
+                alert();
+            }
+            //function Validate() {
+            //    var TeamDetailPostBackURL = 'http://localhost/JDVVNL_CCC/Login/ValidateOTP';
+            //    var loginOTP = {
+            //        otpforLogin : $("#otpforLogin").val()
+            //    }
+            //    $.ajax({
+            //        type: "POST",
+            //        url: TeamDetailPostBackURL,
+            //        contentType: "application/json; charset=utf-8",
+            //        datatype: "json",
+            //        data: loginOTP,
+            //        success: function (data) {
+            //            if (data.status === "failure") {
+            //                $("#AssignPopup").modal('hide');
+            //                swal("error in saving", "error");
+            //            }
+            //            else {
+            //                $("#AssignPopup").modal('hide');
+            //                swal("Saved Successfully", "success");
+            //            }
+            //        },
+            //        error: function (data) {
+            //            $("#AssignPopup").modal('hide');
+            //            swal("Dynamic content load failed.!", "error");
+            //        }
+            //    });
+            //}
+
+
+    </script>*@
+
+<script type="text/javascript">
+    function Validate() {
+     
+    var TeamDetailPostBackURL = 'http://localhost/JDVVNL_CCC/Login/ValidateOTP';
+    var loginOTP = {
+        otpforLogin : $("#otpforLogin").val()
+    }
+    $.ajax({
+        type: "GET",
+        url: TeamDetailPostBackURL,
+        contentType: "application/json; charset=utf-8",
+        datatype: "json",
+        data: loginOTP,
+        success: function (result) {
+            if (result.status === "failure") {
+                $("#AssignPopup").modal('hide');
+                swal("error in saving", "error");
+            }
+            else {
+                window.location.href = result.redirectUrl;
+                $("#AssignPopup").modal('hide');
+                swal("Saved Successfully", "success");
+            }
+        },
+        error: function (data) {
+            $("#AssignPopup").modal('hide');
+            swal("Dynamic content load failed.!", "error");
         }
+    });
+
+    }
+
 </script>
 
 
 <div class="modal fade" id="AssignPopup" tabindex="-1" aria-hidden="true" style="display: none;" data-bs-backdrop="static" data-bs-keyboard="false">
 
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header with-border bg-success-light text-white">
-                    <h2 class="modal-title">Enter Received OTP on your Registered Mobile No.</h2>
-                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn-close"><span>&times;</span> </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row mb-1">
-                        <div class="card mb-2">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="card">
-                                   </div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header with-border bg-success-light text-white">
+                <h2 class="modal-title">Enter Received OTP on your Registered Mobile No.</h2>
+                <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn-close"><span>&times;</span> </button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-1">
+                    <div class="card mb-2">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="row mb-2">
-                                    <div class="col-12 col-lg-6">
-                                        <label for="MOBILE_NO">Enter OTP</label>
-                                        @Html.EditorFor(model => model.otpforLogin, new { htmlAttributes = new { placeholder = "Enter OTP", @class = "form-control" } })
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                    </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-12 col-lg-6">
+                                    <label for="MOBILE_NO">Enter OTP</label>
+                                    @Html.EditorFor(model => model.otpforLogin, new { htmlAttributes = new { placeholder = "Enter OTP", @class = "form-control" } })
                                 </div>
+                                <div class="col-12 col-lg-6">
+                                </div>
+                            </div>
 
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="submitComplaint" onclick="Validate()">Update</button>
-                    @*<button type="submit" class="btn btn-success" >Validate OTP</button>*@
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="validateOTP" onclick="Validate()">Update</button>
+                @*<button type="submit" class="btn btn-success" >Validate OTP</button>*@
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close</button>
             </div>
         </div>
-  
     </div>
+
+</div>
 

@@ -87,7 +87,9 @@
             $('#ddlOfficecode').change(function () {
                 var selectedOffice = $("#ddlOfficecode").val();
                 if (selectedOffice.length > 0) {
+                    $('#SDO_CODE').val(selectedOffice);
                     filljendd(selectedOffice);
+                    fillArea(selectedOffice);
                     checkPowerOutage(selectedOffice);
                 }
             });
@@ -125,6 +127,26 @@
                             for (var i = 0; i < data.length; i++) {
                                 var opt = new Option(data[i].OfficeCode, data[i].OfficeId);
                                 $('#ddlJEArea').append(opt);
+                            }
+                            return;
+                        } else {
+                            alert('error');
+                        }
+                    }
+                });
+            }
+
+            function fillArea(selectedCountry) {
+
+                $.ajax({
+                    type: "GET",
+                    url: '/Complaint/GetAreaCode',
+                    data: { parentOfficeId: selectedCountry },
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        if (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                $('#AREA_CODE').val(data[i].AreaCode);
                             }
                             return;
                         } else {
@@ -180,6 +202,7 @@
                 $('.conMobile').val('');
                 $("#divConsumer").animate({ "opacity": "hide", top: "100" }, 1000);
                 $("#divPublic").animate({ "opacity": "show", top: "100" }, 1000);
+
             }
 
         });

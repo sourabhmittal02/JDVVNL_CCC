@@ -12,6 +12,7 @@ namespace ComplaintTracker.Models
 
         public string OfficeId { get; set; }    
     }
+
     public class ModelAreaCode
     {
 

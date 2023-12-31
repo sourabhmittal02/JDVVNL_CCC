@@ -87,10 +87,8 @@
             $('#ddlOfficecode').change(function () {
                 var selectedOffice = $("#ddlOfficecode").val();
                 if (selectedOffice.length > 0) {
-
                     $('#SDO_CODE').val(selectedOffice);
                     filljendd(selectedOffice);
-
                     fillArea(selectedOffice);
                     checkPowerOutage(selectedOffice);
                 }
@@ -137,6 +135,7 @@
                     }
                 });
             }
+
             function fillArea(selectedCountry) {
 
                 $.ajax({
@@ -156,6 +155,7 @@
                     }
                 });
             }
+
 
 
             $('#ddlComplaintType').change(function () {
@@ -202,6 +202,7 @@
                 $('.conMobile').val('');
                 $("#divConsumer").animate({ "opacity": "hide", top: "100" }, 1000);
                 $("#divPublic").animate({ "opacity": "show", top: "100" }, 1000);
+
             }
 
         });

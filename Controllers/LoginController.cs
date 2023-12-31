@@ -444,6 +444,8 @@ namespace ComplaintTracker.Controllers
         public Task<JsonResult> RegenerateOTP(ModelUser user) 
         {
             string otpforuser = Repository.GenerateOtp(Convert.ToString(@Session["Mobile_No"]));
+
+             SendOTPSms(Convert.ToString(@Session["Mobile_No"]), otpforuser);
             return Task.FromResult(Json(new { status = "success" }, JsonRequestBehavior.AllowGet));
         }
 

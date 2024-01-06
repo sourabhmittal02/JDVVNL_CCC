@@ -23,7 +23,9 @@
                     return false;
                 }
             });
-
+            if (@Session["Roll_ID"] == 1 || @Session["Roll_ID"] == 2) {
+                $('#ddlComplaintAssign').attr("disabled", true);
+            }
             fieldValidate();
             //$('#KNO').attr("disabled", true);
             $('#txtemail').attr("disabled", true);
@@ -115,7 +117,7 @@
 
 
             function filljendd(selectedCountry) {
-                
+
                 $("#ddlJEArea").empty().trigger('change');
                  $.ajax({
                     type: "GET",
@@ -251,7 +253,7 @@
                 ConsumerComplaintListShow(searchparm);
             }
             else {
-                                
+
 
                 searchparm = $('#txtmobileno1').val();
                 searchtype = 4;

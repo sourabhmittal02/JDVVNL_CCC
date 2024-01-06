@@ -93,8 +93,15 @@
             });
 
             $('input[type=radio][name=options]').change(function () {
+                if ($('#All').prop('checked')) {
+                    alert('ALL')
+                }
+                $('h5').text('Complaint Type => ALL');
+                alert($('input[type=radio][name=options]').parent().next().find("label").html())
+                alert($('input[type=radio][name=options]').parent().next().find("label").html())
                 if (this.value == 'ALL') {
                     $('#ComplaintTypeId').val(0);
+                    $('h5').text('Complaint Type => ALL');
                 }
                 else if (this.value == 'BillRelated') {
                     $('#ComplaintTypeId').val(2);
@@ -199,6 +206,7 @@
             document.getElementById('Export').style.display = 'none';
             $('#btnExport').prop('disabled', false);
         }
+        
         function myfun() {
             var id = @ViewBag.RoleID;
             var Complainttype = 0;
@@ -209,34 +217,48 @@
             document.getElementById('btnExport').style.display = 'none';
             if ($('#All').prop('checked')) {
                 Complainttype = 0;
+                $('h5').text('Complaint Type => ALL');
+
             } else if ($('#BillRelated').prop('checked')) {
                 Complainttype = 2;
+                $('h5').text('Complaint Type => BillRelated');
             } else if ($('#MeterRelated').prop('checked')) {
                 Complainttype = 3;
+                $('h5').text('Complaint Type => Meter Related');
             } else if ($('#NoCurrent').prop('checked')) {
                 Complainttype = 4;
+                $('h5').text('Complaint Type => No Current');
             } else if ($('#OtherComplaint').prop('checked')) {
                 Complainttype = 5;
+                $('h5').text('Complaint Type => Other Complaint');
             } else if ($('#SafetyRelated').prop('checked')) {
                 Complainttype = 6;
+                $('h5').text('Complaint Type => Safety Related');
             } else if ($('#ServiceConnectionRelated').prop('checked')) {
                 Complainttype = 7;
+                $('h5').text('Complaint Type => Service Connection Related');
             } else if ($('#TransformerRelated').prop('checked')) {
                 Complainttype = 8;
+                $('h5').text('Complaint Type => Transformer Related');
             } else if ($('#EnergyTheft').prop('checked')) {
                 Complainttype = 9;
+                $('h5').text('Complaint Type => Energy Theft');
             } else if ($('#VoltageRelated').prop('checked')) {
                 Complainttype = 10;
+                $('h5').text('Complaint Type => Voltage Related');
             } else if ($('#LineRelated').prop('checked')) {
                 Complainttype = 11;
+                $('h5').text('Complaint Type => Line Related');
             } else if ($('#PoleRelated').prop('checked')) {
                 Complainttype = 12;
+                $('h5').text('Complaint Type => Pole Related');
             } else if ($('#HARASSMENTBYDISCOMOFFICIAL').prop('checked')) {
                 Complainttype = 13;
+                $('h5').text('Complaint Type => HARASSMENT BY DISCOM OFFICIAL');
             } else if ($('#NewConnection').prop('checked')) {
                 Complainttype = 14;
+                $('h5').text('Complaint Type => New Connection');
             }
-
             $('#ComplaintTypeId').val(Complainttype);
             dataObject.COMPLAINT_NO = $('#txtComplaintno').val();
             dataObject.KNO = $('#txtsearchKno').val();
@@ -905,6 +927,7 @@
                         <!--Complaint Type-->
                         <div class="row mb-2">
                             <div class="col-12 col-lg-12">
+                                <h5 class="m-1  text-secondary fw-bold" id="hcomplaintType">Complaint Type => ALL</h5>
                                 <input type="hidden" id="ComplaintTypeId" name="ComplaintTypeId" value="0">
                                 <div class="btn-group mb-1" style="overflow:hidden;width:100%">
                                     @foreach (var item in Model.ComplaintTypeCollection)

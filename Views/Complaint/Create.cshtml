@@ -274,6 +274,17 @@
                                 { 'data': 'REMARKS' },
                                 { 'data': 'COMPLAINT_status' },
                             ],
+                            "rowCallback": function (row, data, dataIndex) {
+                                if (data['COMPLAINT_status'] == "Pending") {
+                                    $(row).find('td:eq(4)').addClass('table-warning');
+                                } else if (data['COMPLAINT_status'] == "Closed") {
+                                    $(row).find('td:eq(4)').addClass('table-success');
+                                }
+                                else if (data['COMPLAINT_status'] == "Reopen") {
+                                    $(row).find('td:eq(4)').addClass('table-warning');
+                                }
+
+                            },
                             //lengthMenu: [[10, 15, 20, 50, 100, -1], [10, 15, 20, 50, 100, "All"]],
                             //bPaginate: true,
                             processing: true,
@@ -437,7 +448,7 @@
 {
     <script type="text/javascript">
         var msg = '@TempData["AlertMessage"]'
-        alert(msg);
+        //alert(msg);
         if (msg.includes("Error")) {
             swal("Error!", msg, "error");
         }
@@ -556,57 +567,74 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-12 col-lg-3 error-placeholder">
+
+                                <h5 class="card-title">SDO CODE</h5>
                                 @Html.EditorFor(model => model.SDO_CODE, new { htmlAttributes = new { @class = "form-control", @placeholder = "Sdo Code" } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
+                                <h5 class="card-title">KNO</h5>
                                 @Html.EditorFor(model => model.KNO, new { htmlAttributes = new { @class = "form-control", @placeholder = "K No.", @type = "number" } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
+                                <h5 class="card-title">NAME</h5>
                                 @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
+                                <h5 class="card-title">FATHER NAME</h5>
                                 @Html.EditorFor(model => model.FATHER_NAME, new { htmlAttributes = new { @class = "form-control", @placeholder = "Father's Name" } })
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-lg-3 error-placeholder">
+                                <h5 class="card-title">ADDRESS1</h5>
                                 @Html.EditorFor(model => model.ADDRESS1, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address 1" } })
                             </div>
                             <div class="col-12 col-lg-3">
+                                <h5 class="card-title">ADDRESS2</h5>
                                 @Html.EditorFor(model => model.ADDRESS2, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address 2" } })
                             </div>
                             <div class="col-12 col-lg-3">
+                                <h5 class="card-title">ADDRESS3</h5>
                                 @Html.EditorFor(model => model.ADDRESS3, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address 3" } })
                             </div>
                             <div class="col-12 col-lg-3">
+                                <h5 class="card-title">LANDMARK</h5>
                                 @Html.EditorFor(model => model.LANDMARK, new { htmlAttributes = new { @class = "form-control", @placeholder = "Landmark" } })
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-lg-3">
+                                <h5 class="card-title">LANDLINE NO.</h5>
                                 @Html.EditorFor(model => model.LANDLINE_NO, new { htmlAttributes = new { @class = "form-control", @placeholder = "Landline No." } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
+                                <h5 class="card-title">MOBILE NO.</h5>
                                 @Html.EditorFor(model => model.MOBILE_NO, new { htmlAttributes = new { @class = "form-control", @placeholder = "Mobile No.", @type = "number" } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
+                                <h5 class="card-title">ALTERNATE MOBILE NO.</h5>
                                 @Html.EditorFor(model => model.ALTERNATE_MOBILE_NO, new { htmlAttributes = new { @class = "form-control", @placeholder = "Alternate Mobile No.", @type = "number" } })
                             </div>
                             <div class="col-12 col-lg-3">
+                                <h5 class="card-title">CONSUMER STATUS</h5>
                                 @Html.EditorFor(model => model.CONSUMER_STATUS, new { htmlAttributes = new { @class = "form-control", @placeholder = "Consumer Status" } })
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-lg-3 error-placeholder">
+                                <h5 class="card-title">EMAIL</h5>
                                 @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control", @placeholder = "E-MailID/Social Media" } })
                             </div>
                             <div class="col-12 col-lg-3">
+                                <h5 class="card-title">FEEDER NAME</h5>
                                 @Html.EditorFor(model => model.FEEDER_NAME, new { htmlAttributes = new { @class = "form-control", @placeholder = "Feeder Name" } })
                             </div>
                             <div class="col-12 col-lg-3">
+                                <h5 class="card-title">ACCOUNT NO.</h5>
                                 @Html.EditorFor(model => model.ACCOUNT_NO, new { htmlAttributes = new { @class = "form-control", @placeholder = "Account No./Binder No." } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
+                                <h5 class="card-title">AREA CODE</h5>
                                 @Html.EditorFor(model => model.AREA_CODE, new { htmlAttributes = new { @class = "form-control", @placeholder = "Area Code" } })
                             </div>
                         </div>
@@ -664,7 +692,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-lg-3 error-placeholder">
-                                @Html.DropDownListFor(x => Model.ComplaintTypeId, new SelectList(Model.ComplaintTypeCollection, "ComplaintTypeId", "ComplaintType"), new { @class = "form-control select2", id = "ddlComplaintType" })
+                                @Html.DropDownListFor(x => Model.ComplaintTypeId, new SelectList(Model.ComplaintTypeCollection, "ComplaintTypeId", "ComplaintType"), "Select Complaint Type", new { @class = "form-control select2", id = "ddlComplaintType" })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
                                 <select id="ddlSubComplaintType" class="form-control select2">

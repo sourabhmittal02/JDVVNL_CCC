@@ -253,8 +253,6 @@
                 ConsumerComplaintListShow(searchparm);
             }
             else {
-
-
                 searchparm = $('#txtmobileno1').val();
                 searchtype = 4;
                  $.ajax({
@@ -330,7 +328,7 @@
                             $("#ddlOfficecode > option").each(function () {
                                 let result = this.value.slice(0, 7);
 
-                                if (result == item.KNO.slice(0, 7)) {
+                                if (result == item.SDO_CODE) {
                                     $("#ddlOfficecode").val(this.value).trigger('change');
                                 }
                             });

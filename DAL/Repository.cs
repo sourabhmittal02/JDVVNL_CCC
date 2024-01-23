@@ -130,6 +130,32 @@ namespace ComplaintTracker.DAL
             }
             return (obj);
         }
+
+        public static List<ModelComplaintType> GetOutageTypeList(string OFFICE_ID)
+        {
+            List<ModelComplaintType> obj = new List<ModelComplaintType>();
+            SqlParameter[] param ={
+                    new SqlParameter("@OFFICE_ID",OFFICE_ID)
+                                       };
+            DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "GetPowerOutageType", param);
+            //ds.Tables[0].Rows.RemoveAt(0);
+            //Bind Complaint generic list using dataRow     
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                obj.Add(
+
+                    new ModelComplaintType
+                    {
+                        ComplaintTypeId = Convert.ToInt32(dr["Id"]),
+                        ComplaintType = Convert.ToString(dr["Complaint_Type"]),
+                        ComplaintTileColor = Convert.ToString(dr["TileColor"]),
+                        Status = Convert.ToBoolean(dr["IS_ACTIVE"]),
+                        COMPLAINT_COUNT = Convert.ToString(dr["COMPLAINT_COUNT"]),
+                    }
+                    );
+            }
+            return (obj);
+        }
         public static List<ModelComplaintType> GetSubComplaintTypeList(int ComplaintTypeId)
         {
             List<ModelComplaintType> obj = new List<ModelComplaintType>();

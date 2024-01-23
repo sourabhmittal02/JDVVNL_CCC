@@ -162,7 +162,7 @@ namespace ComplaintTracker.Controllers
             ViewBag.fromDate = DateTime.Now;
             ViewBag.toDate = DateTime.Now.AddDays(1);
             ModelOutageReport obj = new ModelOutageReport();
-            obj.ComplaintTypeCollection = Repository.GetComplaintTypeList("0");
+            obj.ComplaintTypeCollection = Repository.GetOutageTypeList("0");
             return View(obj);
         }
         public ActionResult ReportRandomizer()

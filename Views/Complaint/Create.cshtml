@@ -327,7 +327,6 @@
 
                             $("#ddlOfficecode > option").each(function () {
                                 let result = this.value.slice(0, 7);
-
                                 if (result == item.SDO_CODE) {
                                     $("#ddlOfficecode").val(this.value).trigger('change');
                                 }
@@ -406,12 +405,11 @@
             $('#submitComplaint').click(function () {
                 var officecode = $("#ddlOfficecode").val();
                 var ddlJEArea = $("#ddlJEArea").val();
-
-
             $("#SUB_COMPLAINT_TYPE_ID").val($("#ddlSubComplaintType").val());
             $("#JE_AREA").val($('#ddlJEArea').val());
             $("#CONSUMER_TYPE").val($("#Consumertype").val());
             $("#UserId").val(@Session["UserId"]);
+            $("#ComplaintSource").val($("#ddlComplaintAssign").val());
         });
 
 
@@ -716,6 +714,7 @@
         @Html.HiddenFor(model => model.UserId)
         @Html.HiddenFor(model => model.JE_AREA)
         @Html.HiddenFor(model => model.CONSUMER_TYPE)
+        @Html.HiddenFor(model => model.ComplaintSource)
     </div>
 }
 

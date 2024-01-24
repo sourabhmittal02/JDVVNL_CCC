@@ -803,7 +803,7 @@ namespace ComplaintTracker.DAL
                     objBlank = new ModelSearchComplaint();
                     objBlank.KNO = Convert.ToInt64(dr.ItemArray[0].ToString());
                     objBlank.NAME = dr.ItemArray[1].ToString();
-                    objBlank.COMPLAINT_DATE = dr.ItemArray[2].ToString().Substring(0, 10);
+                    objBlank.COMPLAINT_DATE = dr.ItemArray[2].ToString();
                     objBlank.DURATION = dr.ItemArray[3].ToString();
                     objBlank.COMPLAINT_NO = Convert.ToInt64(dr.ItemArray[4].ToString());
                     objBlank.OFFICE_NAME = dr.ItemArray[5].ToString();

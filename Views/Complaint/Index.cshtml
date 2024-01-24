@@ -97,8 +97,6 @@
                     alert('ALL')
                 }
                 $('h5').text('Complaint Type => ALL');
-                alert($('input[type=radio][name=options]').parent().next().find("label").html())
-                alert($('input[type=radio][name=options]').parent().next().find("label").html())
                 if (this.value == 'ALL') {
                     $('#ComplaintTypeId').val(0);
                     $('h5').text('Complaint Type => ALL');
@@ -109,17 +107,17 @@
                 else if (this.value == 'MeterRelated') {
                     $('#ComplaintTypeId').val(3);
                 }
-                else if (this.value == 'NoCurrent') {
+                else if (this.value == 'NoCurrentComplaint') {
                     $('#ComplaintTypeId').val(4);
                 }
                 else if (this.value == 'OtherComplaint') {
                     $('#ComplaintTypeId').val(5);
                 }
-                else if (this.value == 'SaftyRelated') {
+                else if (this.value == 'SafetyRelated') {
                     $('#ComplaintTypeId').val(6);
                 }
-                else if (this.value == 'Service Line Related') {
-                    $('#ComplaintTypeId').val(7);
+                else if (this.value == 'ServiceLineRelated') {
+                    $('#ComplaintTypeId').val(11);
                 }
                 else if (this.value == 'Transformer Burnt') {
                     $('#ComplaintTypeId').val(8);
@@ -130,7 +128,7 @@
                 else if (this.value == 'On Door Connection Request') {
                     $('#ComplaintTypeId').val(10);
                 }
-                else if (this.value == 'Written Complaint') {
+                else if (this.value == 'ServiceLineRelated') {
                     $('#ComplaintTypeId').val(11);
                 } else if (this.value == 'Dengerous Complaint') {
                     $('#ComplaintTypeId').val(12);
@@ -173,7 +171,7 @@
                 Complainttype = 2;
             } else if ($('#MeterRelated').prop('checked')) {
                 Complainttype = 3;
-            } else if ($('#NoCurrent').prop('checked')) {
+            } else if ($('#NoCurrentComplaint').prop('checked')) {
                 Complainttype = 4;
             } else if ($('#OtherComplaint').prop('checked')) {
                 Complainttype = 5;
@@ -181,17 +179,17 @@
                 Complainttype = 6;
             } else if ($('#ServiceConnectionRelated').prop('checked')) {
                 Complainttype = 7;
-            } else if ($('#TransformerRelated').prop('checked')) {
+            } else if ($('#TransformerBurnt').prop('checked')) {
                 Complainttype = 8;
-            } else if ($('#EnergyTheft').prop('checked')) {
+            } else if ($('#TheftInformation').prop('checked')) {
                 Complainttype = 9;
             } else if ($('#VoltageRelated').prop('checked')) {
                 Complainttype = 10;
-            } else if ($('#LineRelated').prop('checked')) {
+            } else if ($('#ServiceLineRelated').prop('checked')) {
                 Complainttype = 11;
             } else if ($('#PoleRelated').prop('checked')) {
                 Complainttype = 12;
-            } else if ($('#HARASSMENTBYDISCOMOFFICIAL').prop('checked')) {
+            } else if ($('#HarassmentByDiscomEmployee').prop('checked')) {
                 Complainttype = 13;
             } else if ($('#NewConnection').prop('checked')) {
                 Complainttype = 14;
@@ -225,9 +223,9 @@
             } else if ($('#MeterRelated').prop('checked')) {
                 Complainttype = 3;
                 $('h5').text('Complaint Type => Meter Related');
-            } else if ($('#NoCurrent').prop('checked')) {
+            } else if ($('#NoCurrentComplaint').prop('checked')) {
                 Complainttype = 4;
-                $('h5').text('Complaint Type => No Current');
+                $('h5').text('Complaint Type => No Current Complaint');
             } else if ($('#OtherComplaint').prop('checked')) {
                 Complainttype = 5;
                 $('h5').text('Complaint Type => Other Complaint');
@@ -237,24 +235,24 @@
             } else if ($('#ServiceConnectionRelated').prop('checked')) {
                 Complainttype = 7;
                 $('h5').text('Complaint Type => Service Connection Related');
-            } else if ($('#TransformerRelated').prop('checked')) {
+            } else if ($('#TransformerBurnt').prop('checked')) {
                 Complainttype = 8;
-                $('h5').text('Complaint Type => Transformer Related');
-            } else if ($('#EnergyTheft').prop('checked')) {
+                $('h5').text('Complaint Type => Transformer Burnt');
+            } else if ($('#TheftInformation').prop('checked')) {
                 Complainttype = 9;
-                $('h5').text('Complaint Type => Energy Theft');
+                $('h5').text('Complaint Type => Theft Information');
             } else if ($('#VoltageRelated').prop('checked')) {
                 Complainttype = 10;
                 $('h5').text('Complaint Type => Voltage Related');
-            } else if ($('#LineRelated').prop('checked')) {
+            } else if ($('#ServiceLineRelated').prop('checked')) {
                 Complainttype = 11;
-                $('h5').text('Complaint Type => Line Related');
+                $('h5').text('Complaint Type => Service Line Related');
             } else if ($('#PoleRelated').prop('checked')) {
                 Complainttype = 12;
                 $('h5').text('Complaint Type => Pole Related');
-            } else if ($('#HARASSMENTBYDISCOMOFFICIAL').prop('checked')) {
+            } else if ($('#HarassmentByDiscomEmployee').prop('checked')) {
                 Complainttype = 13;
-                $('h5').text('Complaint Type => HARASSMENT BY DISCOM OFFICIAL');
+                $('h5').text('Complaint Type => Harassment By Discom Employee');
             } else if ($('#NewConnection').prop('checked')) {
                 Complainttype = 14;
                 $('h5').text('Complaint Type => New Connection');

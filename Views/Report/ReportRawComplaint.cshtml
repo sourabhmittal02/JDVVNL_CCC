@@ -210,7 +210,7 @@
             Complainttype = 2;
         } else if ($('#MeterRelated').prop('checked')) {
             Complainttype = 3;
-        } else if ($('#NoCurrent').prop('checked')) {
+        } else if ($('#NoCurrentComplaint').prop('checked')) {
             Complainttype = 4;
         } else if ($('#OtherComplaint').prop('checked')) {
             Complainttype = 5;
@@ -218,20 +218,19 @@
             Complainttype = 6;
         } else if ($('#ServiceConnectionRelated').prop('checked')) {
             Complainttype = 7;
-        } else if ($('#TransformerRelated').prop('checked')) {
+        } else if ($('#TransformerBurnt').prop('checked')) {
             Complainttype = 8;
-        } else if ($('#EnergyTheft').prop('checked')) {
+        } else if ($('#TheftInformation').prop('checked')) {
             Complainttype = 9;
         } else if ($('#VoltageRelated').prop('checked')) {
             Complainttype = 10;
-        } else if ($('#LineRelated').prop('checked')) {
+        } else if ($('#ServiceLineRelated').prop('checked')) {
             Complainttype = 11;
         } else if ($('#PoleRelated').prop('checked')) {
             Complainttype = 12;
-        } else if ($('#HARASSMENTBYDISCOMOFFICIAL').prop('checked')) {
+        } else if ($('#HarassmentByDiscomEmployee').prop('checked')) {
             Complainttype = 13;
-        }
-        else if ($('#NewConnection').prop('checked')) {
+        } else if ($('#NewConnection').prop('checked')) {
             Complainttype = 14;
         }
         dataObject.fromdate = $('#fromDate').val();

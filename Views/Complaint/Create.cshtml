@@ -205,6 +205,13 @@
                 $("#divConsumer").animate({ "opacity": "hide", top: "100" }, 1000);
                 $("#divPublic").animate({ "opacity": "show", top: "100" }, 1000);
 
+                $('#NAME').prop('disabled', false);
+                $('#FATHER_NAME').prop('disabled', false);
+                $('#KNO').prop('disabled', false);
+                $('#ADDRESS1').prop('disabled', false);
+                $('#ADDRESS2').prop('disabled', false);
+
+                $('#ADDRESS3').prop('disabled', false);
             }
 
         });
@@ -325,7 +332,13 @@
                             $('#ACCOUNT_NO').val(item.ACCOUNT_NO);
                             $('#AREA_CODE').val(item.AREA_CODE);
 
+                            $('#NAME').prop('disabled', true);
+                            $('#FATHER_NAME').prop('disabled', true);
+                            $('#KNO').prop('disabled', true);
+                            $('#ADDRESS1').prop('disabled', true);
+                            $('#ADDRESS2').prop('disabled', true);
 
+                            $('#ADDRESS3').prop('disabled', true);
                             $("#ddlOfficecode > option").each(function () {
                                 let result = this.value.slice(0, 7);
                                 if (result == item.SDO_CODE) {

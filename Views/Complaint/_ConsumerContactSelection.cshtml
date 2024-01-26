@@ -115,7 +115,7 @@
                             nos = item.COMPLAINT_NO;
                         }
                         if (key == 0) {
-                            if (item.CONSUMER_STATUS == 'R' || item.CONSUMER_STATUS == 'N' || item.CONSUMER_STATUS == 'F') {
+                            if (item.CONSUMER_STATUS == 'R' || item.CONSUMER_STATUS == 'N' || item.CONSUMER_STATUS == 'F' || item.CONSUMER_STATUS == 'D' || item.CONSUMER_STATUS == 'P') {
                                 serviceEnable = true;
                             }
                             $('#SDO_CODE').val(item.SDO_CODE);
@@ -134,7 +134,13 @@
                             $('#FEEDER_NAME').val(item.FEEDER_NAME);
                             $('#ACCOUNT_NO').val(item.ACCOUNT_NO);
                             $('#AREA_CODE').val(item.AREA_CODE);
+                            $('#NAME').prop('disabled', true);
+                            $('#FATHER_NAME').prop('disabled', true);
+                            $('#KNO').prop('disabled', true);
+                            $('#ADDRESS1').prop('disabled', true);
+                            $('#ADDRESS2').prop('disabled', true);
 
+                            $('#ADDRESS3').prop('disabled', true);
                             $("#ddlOfficecode > option").each(function () {
                                 let result = this.value.slice(0, 7);
                                 if (result == item.KNO.slice(0, 7)) {

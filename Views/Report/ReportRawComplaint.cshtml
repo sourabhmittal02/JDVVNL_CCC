@@ -72,7 +72,13 @@
                             </div>
                         </div>
                         <div class="col-12 col-lg-2">
-                            @Html.DropDownList("ddlSource", new SelectList(Enumerable.Empty<SelectListItem>()), new { @class = "form-control", id = "ddlSource" })
+                            @Html.DropDownList("ddlSource", new List<SelectListItem>
+                               {
+                               new SelectListItem{ Text="All", Value = "0" },
+                                   new SelectListItem{ Text="Pending", Value = "1" },
+                                   new SelectListItem{ Text="Closed", Value = "2" },
+                                     new SelectListItem{ Text="ReOpen", Value = "3" },
+                                }, new { @class = "form-control", id = "ddlSource" })
                         </div>
                         <div class="col-12 col-lg-3">
                             @Html.DropDownList("ddlOfficecode", new SelectList(Enumerable.Empty<SelectListItem>()), new { @class = "form-control", id = "ddlOfficecode" })
@@ -186,18 +192,18 @@
                 },
                 error: function (data) { }
             });
-            $.ajax({
-                type: "GET",
-                url: '/Complaint/ComplaintSourceJson',
-                contentType: "application/json; charset=utf-8",
-                datatype: JSON,
-                success: function (result) {
-                    $(result).each(function () {
-                        $("#ddlSource").append($("<option></option>").val(this.Value).html(this.Text));
-                    });
-                },
-                error: function (data) { }
-            });
+            //$.ajax({
+            //    type: "GET",
+            //    url: '/Complaint/ComplaintSourceJson',
+            //    contentType: "application/json; charset=utf-8",
+            //    datatype: JSON,
+            //    success: function (result) {
+            //        $(result).each(function () {
+            //            $("#ddlSource").append($("<option></option>").val(this.Value).html(this.Text));
+            //        });
+            //    },
+            //    error: function (data) { }
+            //});
         });
 
     });

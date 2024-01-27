@@ -134,13 +134,13 @@
                             $('#FEEDER_NAME').val(item.FEEDER_NAME);
                             $('#ACCOUNT_NO').val(item.ACCOUNT_NO);
                             $('#AREA_CODE').val(item.AREA_CODE);
-                            $('#NAME').prop('disabled', true);
-                            $('#FATHER_NAME').prop('disabled', true);
-                            $('#KNO').prop('disabled', true);
-                            $('#ADDRESS1').prop('disabled', true);
-                            $('#ADDRESS2').prop('disabled', true);
+                            //$('#NAME').prop('disabled', true);
+                            //$('#FATHER_NAME').prop('disabled', true);
+                            //$('#KNO').prop('disabled', true);
+                            //$('#ADDRESS1').prop('disabled', true);
+                            //$('#ADDRESS2').prop('disabled', true);
 
-                            $('#ADDRESS3').prop('disabled', true);
+                            //$('#ADDRESS3').prop('disabled', true);
                             $("#ddlOfficecode > option").each(function () {
                                 let result = this.value.slice(0, 7);
                                 if (result == item.KNO.slice(0, 7)) {

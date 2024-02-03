@@ -173,7 +173,10 @@ namespace ComplaintTracker.Controllers
                 }
 
                 // TODO: Add insert logic here
-                User.Office_Id = Session["OFFICE_ID"].ToString();
+                if (User.Office_Id == "0")
+                {
+                    User.Office_Id = Session["OFFICE_ID"].ToString();
+                }
                 if (saveUserAPI(User))
                 {
                     int complaintNo = Repository.SaveUser(User, "I");

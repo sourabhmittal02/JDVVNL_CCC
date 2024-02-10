@@ -152,6 +152,8 @@
                 else {
                     $("#ClosePopup").modal('hide');
                     swal("Saved Successfully", "success");
+                var url = '@Url.Action("Index", "Complaint")';
+            window.location.href = url;
                 }
             },
             error: function (data) {

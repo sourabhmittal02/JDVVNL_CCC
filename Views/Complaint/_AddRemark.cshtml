@@ -84,8 +84,10 @@
                     datatype: "json",
                     success: function (data) {
                         if (data.status == 1) {
-                            swal("Good job!", data.message, "success");
                             $("#remarkPopup").modal('hide');
+                            myfun();
+                            swal("Good job!", data.message, "success");
+                           
                         }
                         else {
                             swal("error occured!", data.message, "error");

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using DirectComplaintRegister.DAL;
 using System.IO;
 using System.Text;
+using static ComplaintTracker.JqueryDatatableParam;
 
 namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
 {
@@ -29,7 +30,7 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
         {
             COMPLAINT obj = new COMPLAINT();
 
-            obj.OfficeCodeCollection = RepositoryArea.GetOfficeList_Create("1");
+            obj.OfficeCodeCollection = RepositoryArea.GetOfficeList_Create("3");
             obj.ComplaintTypeCollection = RepositoryArea.GetComplaintTypeList("0");
             obj.ComplaintTypeCollection.RemoveAt(0);
             //obj.ComplaintAssignCollection = Repository.GetAssigneeList();
@@ -105,7 +106,52 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
                 return View(obj);
             }
         }
-       
+
+        public JsonResult GetComplaintSearch(string Complaint_no) //It will be fired from Jquery ajax call
+        {
+            ModelSearchComplaint dataObject = new ModelSearchComplaint();
+            List<ModelSearchComplaint> data = new List<ModelSearchComplaint>();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                    dataObject.draw = 1;
+                    dataObject.start = 0;
+                    dataObject.length = 10;
+
+                    // Initialization.   
+                    dataObject.COMPLAINT_NO = Convert.ToInt64(Complaint_no);
+                    dataObject.KNO = 0;
+                    dataObject.MOBILE_NO = "0";
+                    dataObject.COMPLAINT_TYPE = "0";
+                    dataObject.OFFICE_ID = "0";
+                    dataObject.COMPLAINT_status = "0";
+                    dataObject.COMPLAINT_SOURCE = "1";
+                    dataObject.fromdate = "0";
+                    dataObject.todate = "";
+                    dataObject.assigned_status = "0";
+                    //if (dataObject.OFFICE_ID is null || dataObject.OFFICE_ID == "0")
+                    //{
+                    //    dataObject.OFFICE_ID = Session["OFFICE_ID"].ToString();
+                    //}
+                    data = RepositoryArea.GetComplaintDetails(dataObject);
+                    int count = data.Count() > 0 ? data[0].Total : 0;
+                    return Json(data, JsonRequestBehavior.AllowGet);
+
+                }
+                catch
+                {
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            else
+            {
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public byte[] ConvertToBytes(HttpPostedFileBase image)
         {
             byte[] imageBytes = null;

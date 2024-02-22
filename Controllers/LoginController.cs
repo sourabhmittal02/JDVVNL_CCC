@@ -200,11 +200,11 @@ namespace ComplaintTracker.Controllers
             modelUser.User_Name = Session["User_Name"].ToString();
 
             //userAPI.LoginAgentUser(modelUser);
-            if (userAPI.LogOutAgentUser(modelUser))
-            {
-                Repository.AgentLogin(Session["User_Name"].ToString(), Session["Roll_Name"].ToString(), DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "OUT");
-            }
- 
+            //if (userAPI.LogOutAgentUser(modelUser))
+            //{
+            //    Repository.AgentLogin(Session["User_Name"].ToString(), Session["Roll_Name"].ToString(), DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "OUT");
+            //}
+            Repository.AgentLogin(Session["User_Name"].ToString(), Session["Roll_Name"].ToString(), DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "OUT");
             message = "Logout Successfully! " + modelUser.User_Name;
             TempData["loginmsg"] = message;
             return RedirectToAction("AccountLogin");
@@ -381,7 +381,19 @@ namespace ComplaintTracker.Controllers
 
                 DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "Validate_User", param);
 
-            
+                ModelUser modelUser = new ModelUser();
+                modelUser.PhoneLogin = ds.Tables[0].Rows[0]["PHONE_LOGIN"].ToString();
+                modelUser.PhonePassword = ds.Tables[0].Rows[0]["PHONE_PASS"].ToString();
+                modelUser.User_Name = ds.Tables[0].Rows[0]["USER_Name"].ToString();
+                modelUser.Password = "";
+                modelUser.agent_type = ds.Tables[0].Rows[0]["ROLE_NAME"].ToString();
+
+
+
+                //userAPI.LoginAgentUser(modelUser);
+                //---in sp
+
+                Repository.AgentLogin(modelUser.User_Name, modelUser.agent_type, DateTime.Now, DateTime.Now, DateTime.Now, DateTime.Now, "IN");
 
                 List<ModelMenu> lstMenu = new List<ModelMenu>();
                 foreach (DataRow dr in ds.Tables[0].Rows)

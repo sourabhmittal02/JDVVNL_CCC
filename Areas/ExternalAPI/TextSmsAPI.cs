@@ -69,6 +69,72 @@ namespace DirectComplaintRegister.ExternalAPI
 
             return responseFromServer;
         }
+
+        public async Task<string> RegisterComplaintSMSEncode(ModelSmsAPI modelsms)
+        {
+            log.Information("IN RegisterComplaintSMS");
+            Stream dataStream;
+
+            modelsmsClone = modelsms;
+            System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12; //forcing .Net framework to use TLSv1.2
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(modelsms.SmsApiURL);
+            request.ProtocolVersion = HttpVersion.Version10;
+            request.KeepAlive = false;
+            request.ServicePoint.ConnectionLimit = 1;
+
+            //((HttpWebRequest)request).UserAgent = ".NET Framework Example Client";
+            ((HttpWebRequest)request).UserAgent = "Mozilla/4.0 (compatible; MSIE 5.0; Windows 98; DigExt)";
+
+            request.Method = "POST";
+
+            //System.Net.ServicePointManager.CertificatePolicy = new MyPolicy();
+            String U_Convertedmessage = "";
+
+            foreach (char c in modelsms.Smstext)
+            {
+                int j = (int)c;
+                String sss = "&#" + j + ";";
+                U_Convertedmessage = U_Convertedmessage + sss;
+            }
+            String encryptedPassword = encryptedPasswod(modelsmsClone.Password);
+            String NewsecureKey = hashGenerator(modelsmsClone.Username.Trim(), modelsmsClone.SenderId.Trim(), U_Convertedmessage.Trim(), modelsmsClone.SecureKey.Trim());
+
+
+            String smsservicetype = "unicodemsg"; // for unicode msg
+            String query = "username=" + HttpUtility.UrlEncode(modelsmsClone.Username.Trim()) +
+            "&password=" + HttpUtility.UrlEncode(encryptedPassword) +
+            "&smsservicetype=" + HttpUtility.UrlEncode(smsservicetype) +
+            "&content=" + HttpUtility.UrlEncode(U_Convertedmessage.Trim()) +
+            "&bulkmobno=" + HttpUtility.UrlEncode(modelsms.To) +
+            "&senderid=" + HttpUtility.UrlEncode(modelsmsClone.SenderId.Trim()) +
+            "&key=" + HttpUtility.UrlEncode(NewsecureKey.Trim()) +
+            "&templateid=" + HttpUtility.UrlEncode(modelsms.Smstemplete.Trim());
+
+
+            byte[] byteArray = Encoding.ASCII.GetBytes(query);
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = byteArray.Length;
+            dataStream = request.GetRequestStream();
+            dataStream.Write(byteArray, 0, byteArray.Length);
+            dataStream.Close();
+            WebResponse response = request.GetResponse();
+            String Status = ((HttpWebResponse)response).StatusDescription;
+            dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            String responseFromServer = reader.ReadToEnd();
+            reader.Close();
+            dataStream.Close();
+            response.Close();
+
+            log.Information("SmsApiURL" + modelsmsClone.SmsApiURL);
+            log.Information("smstext" + modelsmsClone.Smstext);
+
+
+            log.Information(responseFromServer);
+
+            return responseFromServer;
+        }
         public static String encryptedPasswod(String password)
         {
             byte[] encPwd = Encoding.UTF8.GetBytes(password);

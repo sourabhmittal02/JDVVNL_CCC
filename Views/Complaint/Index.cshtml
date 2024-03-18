@@ -24,7 +24,20 @@
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#btnExport').prop('disabled', true);
+            
+            var id1 = @ViewBag.RoleID;
+            if (id1 == 14) {
+                document.getElementById('btnExport').style.visibility = 'visible';
+                document.getElementById('Export').style.visibility = 'visible';
+                //$('#btnExport').prop('disabled', false);
+                //$('#Export').prop('disabled', false);
+            }
+            else {
+                document.getElementById('btnExport').style.visibility = 'hidden';
+                document.getElementById('Export').style.visibility = 'hidden';
+                //$('#btnExport').prop('disabled', true);
+                //$('#Export').prop('disabled', true);
+            }
             document.getElementById('btnExport').style.display = 'none';
             document.getElementById('Export').style.display = '';
             $(".searchtag").keypress(function (event) {
@@ -204,7 +217,7 @@
             document.getElementById('Export').style.display = 'none';
             $('#btnExport').prop('disabled', false);
         }
-        
+
         function myfun() {
             var id = @ViewBag.RoleID;
             var Complainttype = 0;
@@ -379,7 +392,7 @@
                             } else { return '' }
                              /*return '<button href="#" type="submit" class="btn btn-danger btnShadow"  onclick="NewConnection(' + row.COMPLAINT_NO + ')">New Connection</a>'*/
                         },
-                        
+
                     },
                     { 'data': 'SOURCE_NAME' },
                     { 'data': 'ASSIGNED_TO' },
@@ -393,7 +406,7 @@
                     }
 
                 }
-               
+
             });
 
         }
@@ -900,10 +913,10 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-12 col-lg-3">
-                                @Html.TextBox("fromDate", string.Format("{0:yyyy-MM-dd}", fromDate), new { @class = "form-control mb-1", type = "date" })
+                                @Html.TextBox("fromDate", string.Format("{0:yyyy-MM-dd hh:mm:ss}", fromDate), new { @class = "form-control mb-1", type = "date" })
                             </div>
                             <div class="col-12 col-lg-3">
-                                @Html.TextBox("toDate", string.Format("{0:yyyy-MM-dd}", toDate), new { @class = "form-control mb-1", type = "date" })
+                                @Html.TextBox("toDate", string.Format("{0:yyyy-MM-dd hh:mm:ss}", toDate), new { @class = "form-control mb-1", type = "date" })
                             </div>
                             <div class="col-12 col-lg-3">
                                 @Html.DropDownList("ddlstatus", new List<SelectListItem>
@@ -956,7 +969,7 @@
                                 <div>
                                     <input type="button" value="Search" class="btn btn-primary btn-block" id="btnSearch" onclick="myfun()" name="btnSearch" />
                                     <input type="button" value="Export" class="btn btn-primary btn-block" id="Export" onclick="myfun1()" name="Export" />
-                                    <input type="submit" value="Excel Export" id="btnExport" name="btnExport" class="btn btn-dark btn-block" onclick="exportclick()" hidden />
+                                    <input type="submit" value="Excel Export" id="btnExport" name="btnExport" class="btn btn-dark btn-block" onclick="exportclick()" />
                                 </div>
                             </div>
                             @*<div class="col-12 col-lg-4">

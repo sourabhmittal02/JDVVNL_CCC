@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Complaint Search";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var fromDate = (DateTime)ViewBag.fromDate;
+    var toDate = (DateTime)ViewBag.toDate;
 
 }
 
@@ -23,6 +25,10 @@
 
 @section scripts{
     <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            $('#fromDate1').datetimepicker();
+            $('#toDate1').datetimepicker();
+        });
         $(document).ready(function () {
             
             var id1 = @ViewBag.RoleID;
@@ -859,11 +865,6 @@
 
 
 <div class="row">
-    @{
-        var fromDate = (DateTime)ViewBag.fromDate;
-        var toDate = (DateTime)ViewBag.toDate;
-
-    }
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -913,10 +914,20 @@
                         </div>
                         <div class="row mb-2">
                             <div class="col-12 col-lg-3">
-                                @Html.TextBox("fromDate", string.Format("{0:yyyy-MM-dd}", fromDate), new { @class = "form-control mb-1", type = "date" })
+                                <div class="input-group date" id="fromDate1" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#fromDate1" id="fromDate" value="@fromDate" />
+                                    <div class="input-group-text" data-target="#fromDate1" data-toggle="datetimepicker">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-12 col-lg-3">
-                                @Html.TextBox("toDate", string.Format("{0:yyyy-MM-dd}", toDate), new { @class = "form-control mb-1", type = "date" })
+                                <div class="input-group date" id="toDate1" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input" data-target="#toDate1" id="toDate" value="@toDate" />
+                                    <div class="input-group-text" data-target="#toDate1" data-toggle="datetimepicker">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-12 col-lg-3">
                                 @Html.DropDownList("ddlstatus", new List<SelectListItem>

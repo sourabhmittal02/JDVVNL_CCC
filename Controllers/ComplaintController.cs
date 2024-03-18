@@ -34,8 +34,8 @@ namespace ComplaintTracker.Controllers
         public ActionResult Index()
         {
             COMPLAINT objComplaint = new COMPLAINT();
-            ViewBag.fromDate = Convert.ToDateTime("1900-01-01");
-            ViewBag.toDate = Convert.ToDateTime("1900-01-01");
+            ViewBag.fromDate = DateTime.Now;
+            ViewBag.toDate = DateTime.Now.AddDays(1);
             ViewBag.RoleID = Session["Roll_ID"];
             objComplaint.ComplaintTypeCollection = Repository.GetComplaintTypeList("0");
             return View(objComplaint);

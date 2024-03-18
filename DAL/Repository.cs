@@ -1387,7 +1387,13 @@ namespace ComplaintTracker.DAL
                     TextSmsAPI textSmsAPI1 = new TextSmsAPI();
                     modelSmsAPI_FRT.To = modelRemark.Assign_FRTMobile.ToString();
                     modelSmsAPI_FRT.Smstemplete = "1307160472989225821";
-                    modelSmsAPI_FRT.Smstext = "Dear FRT Complaint has been assigned to you with the details below COMPLAINT TYPE : " + modelRemark.COMPLAINT_TYPE + " ,COMPLAINT NO: " + modelRemark.COMPLAINT_NO + " ,NAME OF CONSUMER: " + modelRemark.NAME + " ,ADDRESS OF CONSUMER: " + modelRemark.ADDRESS1 + "," + modelRemark.ADDRESS2 + ", Mobile No. " + modelRemark.MOBILE_NO+ "-JDVVNL";
+                    if (modelRemark.ASSIGNEEId == 8)
+                    {
+                        modelSmsAPI_FRT.Smstext = "Dear FRT Complaint has been assigned to you with the details below COMPLAINT TYPE : " + modelRemark.COMPLAINT_TYPE + " ,COMPLAINT NO: " + modelRemark.COMPLAINT_NO + " ,NAME OF CONSUMER: " + modelRemark.NAME + " ,ADDRESS OF CONSUMER: " + modelRemark.ADDRESS1 + "," + modelRemark.ADDRESS2 + ", Mobile No. " + modelRemark.MOBILE_NO + "-JDVVNL";
+                    }
+                    else{
+                        modelSmsAPI_FRT.Smstext = "Dear Sir Complaint has been assigned to you with the details below COMPLAINT TYPE : " + modelRemark.COMPLAINT_TYPE + " ,COMPLAINT NO: " + modelRemark.COMPLAINT_NO + " ,NAME OF CONSUMER: " + modelRemark.NAME + " ,ADDRESS OF CONSUMER: " + modelRemark.ADDRESS1 + "," + modelRemark.ADDRESS2 + ", Mobile No. " + modelRemark.MOBILE_NO + "-JDVVNL";
+                    }
                     string response1 = await textSmsAPI1.RegisterComplaintSMS(modelSmsAPI_FRT);
                     modelRemark.SMS = modelSmsAPI_FRT.Smstext;
                     modelRemark.MOBILE_NO = modelSmsAPI_FRT.To;

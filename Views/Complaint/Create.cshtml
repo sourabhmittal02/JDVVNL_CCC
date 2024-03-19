@@ -3,7 +3,16 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section scripts{
+    <style type="text/css">
+        .required::after {
+            content: "*";
+            font-weight: bold;
+            color: red;
+            padding-left:2px;
+        }
+    </style>
     <link href="~/Content/css/select2.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="~/Scripts/select2.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -148,7 +157,8 @@
                     success: function (data) {
                         if (data) {
                             for (var i = 0; i < data.length; i++) {
-                                $('#AREA_CODE').val(data[i].AreaCode);
+                                var opt = new Option(data[i].AreaCode, data[i].AreaCode);
+                                $("#ddlAreaCode").val(data[i].AreaCode).trigger('change');
                             }
                             return;
                         } else {
@@ -157,6 +167,10 @@
                     }
                 });
             }
+
+            $('#ddlAreaCode').change(function () {
+                $('#AREA_CODE').val($("#ddlAreaCode").val());
+            });
 
 
 
@@ -588,7 +602,7 @@
                                 @Html.EditorFor(model => model.KNO, new { htmlAttributes = new { @class = "form-control", @placeholder = "K No.", @type = "number" } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
-                                <h5 class="card-title">NAME</h5>
+                                <h5 class="card-title required">NAME</h5>
                                 @Html.EditorFor(model => model.NAME, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
@@ -598,7 +612,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-12 col-lg-3 error-placeholder">
-                                <h5 class="card-title">ADDRESS1</h5>
+                                <h5 class="card-title required">ADDRESS1</h5>
                                 @Html.EditorFor(model => model.ADDRESS1, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address 1" } })
                             </div>
                             <div class="col-12 col-lg-3">
@@ -620,7 +634,7 @@
                                 @Html.EditorFor(model => model.LANDLINE_NO, new { htmlAttributes = new { @class = "form-control", @placeholder = "Landline No." } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
-                                <h5 class="card-title">MOBILE NO.</h5>
+                                <h5 class="card-title required">MOBILE NO.</h5>
                                 @Html.EditorFor(model => model.MOBILE_NO, new { htmlAttributes = new { @class = "form-control", @placeholder = "Mobile No.", @type = "number" } })
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
@@ -647,7 +661,15 @@
                             </div>
                             <div class="col-12 col-lg-3 error-placeholder">
                                 <h5 class="card-title">AREA CODE</h5>
-                                @Html.EditorFor(model => model.AREA_CODE, new { htmlAttributes = new { @class = "form-control", @placeholder = "Area Code" } })
+                                @Html.EditorFor(model => model.AREA_CODE, new { htmlAttributes = new { @class = "form-control", @placeholder = "Area Code", @style = "display:none" } })
+
+                                @Html.DropDownList("ddlAreaCode", new List<SelectListItem>
+                                                          {
+                                                              new SelectListItem{ Text="U", Value = "U" },
+                                                              new SelectListItem{ Text="R", Value = "R" },
+                                                              new SelectListItem{ Text="C", Value = "C" }
+
+                                                           }, new { @class = "form-control select2", id = "ddlAreaCode" })
                             </div>
                         </div>
                     </div>

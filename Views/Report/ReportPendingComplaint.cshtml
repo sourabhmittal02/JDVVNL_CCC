@@ -91,21 +91,21 @@
         } else if ($('#rdoSaftyRelated').prop('checked')) {
             Complainttype = 6;
             $('h4').text('Complaint Type => Safty Related');
-        } else if ($('#rdoOnDoorConnectionRequest').prop('checked')) {
-            Complainttype = 7;
-            $('h4').text('Complaint Type => On Door ConnectionRequest');
+        } else if ($('#rdoOnHarassmentByDiscomEmployee').prop('checked')) {
+            Complainttype = 13;
+            $('h4').text('Complaint Type => Harassment By Discom Employee');
         } else if ($('#rdoTheftInformation').prop('checked')) {
-            Complainttype = 8;
+            Complainttype = 9;
             $('h4').text('Complaint Type => Theft Information');
         } else if ($('#rdoTransformerBurnt').prop('checked')) {
-            Complainttype = 9;
+            Complainttype = 8;
             $('h4').text('Complaint Type => Transformer Burnt');
         } else if ($('#rdoServiceLineRelated').prop('checked')) {
-            Complainttype = 10;
-            $('h4').text('Complaint Type => Service Line Related');
-        } else if ($('#rdoWrittenComplaint').prop('checked')) {
             Complainttype = 11;
-            $('h4').text('Complaint Type => Written Complaint');
+            $('h4').text('Complaint Type => Service Line Related');
+        } else if ($('#rdoServiceRequest').prop('checked')) {
+            Complainttype = 14;
+            $('h4').text('Complaint Type => Service Request');
         }
         if ($('#SearchType').prop('checked')) {
             dataObject.SlaType = 1;
@@ -202,21 +202,21 @@
         } else if ($('#rdoSaftyRelated').prop('checked')) {
             Complainttype = 6;
             $('h4').text('Complaint Type => Safty Related');
-        } else if ($('#rdoOnDoorConnectionRequest').prop('checked')) {
-            Complainttype = 7;
-            $('h4').text('Complaint Type => On Door ConnectionRequest');
+        } else if ($('#rdoOnHarassmentByDiscomEmployee').prop('checked')) {
+            Complainttype = 13;
+            $('h4').text('Complaint Type => Harassment By Discom Employee');
         } else if ($('#rdoTheftInformation').prop('checked')) {
-            Complainttype = 8;
+            Complainttype = 9;
             $('h4').text('Complaint Type => Theft Information');
         } else if ($('#rdoTransformerBurnt').prop('checked')) {
-            Complainttype = 9;
+            Complainttype = 8;
             $('h4').text('Complaint Type => Transformer Burnt');
         } else if ($('#rdoServiceLineRelated').prop('checked')) {
-            Complainttype = 10;
-            $('h4').text('Complaint Type => Service Line Related');
-        } else if ($('#rdoWrittenComplaint').prop('checked')) {
             Complainttype = 11;
-            $('h4').text('Complaint Type => Written Complaint');
+            $('h4').text('Complaint Type => Service Line Related');
+        } else if ($('#rdoServiceRequest').prop('checked')) {
+            Complainttype = 14;
+            $('h4').text('Complaint Type => ervice Request');
         }
         dataObject.COMPLAINT_NO = $('#txtComplaintno').val();
         dataObject.KNO = $('#txtsearchKno').val();
@@ -374,25 +374,25 @@
                 $('#ComplaintTypeId').val(6);
                 $('h4').text('Complaint Type => SaftyRelated');
             }
-            else if (this.value == 'OnDoorConnectionRequest') {
-                $('#ComplaintTypeId').val(7);
-                $('h4').text('Complaint Type => OnDoorConnectionRequest');
+            else if (this.value == 'OnHarassmentByDiscomEmployee') {
+                $('#ComplaintTypeId').val(13);
+                $('h4').text('Complaint Type => OnHarassmentByDiscomEmployee');
             }
             else if (this.value == 'TheftInformation') {
-                $('#ComplaintTypeId').val(8);
+                $('#ComplaintTypeId').val(9);
                 $('h4').text('Complaint Type => TheftInformation');
             }
             else if (this.value == 'TransformerBurnt') {
-                $('#ComplaintTypeId').val(9);
+                $('#ComplaintTypeId').val(8);
                 $('h4').text('Complaint Type => TransformerBurnt');
             }
             else if (this.value == 'ServiceLineRelated') {
-                $('#ComplaintTypeId').val(10);
+                $('#ComplaintTypeId').val(11);
                 $('h4').text('Complaint Type => ServiceLineRelated');
             }
-            else if (this.value == 'WrittenComplaint') {
-                $('#ComplaintTypeId').val(11);
-                $('h4').text('Complaint Type => WrittenComplaint');
+            else if (this.value == 'ServiceRequest') {
+                $('#ComplaintTypeId').val(14);
+                $('h4').text('Complaint Type => ServiceRequest');
             }
 
         });
@@ -470,8 +470,8 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-12 col-lg-3">
-                        <input type="radio" class="btn-check" name="options" id="rdoOnDoorConnectionRequest" autocomplete="off" value="OnDoorConnectionRequest" />
-                        <label class="btn" style="background: #16E2F5; color: white;" for="rdoOnDoorConnectionRequest">OnDoorConnectionRequest</label>
+                        <input type="radio" class="btn-check" name="options" id="rdoOnHarassmentByDiscomEmployee" autocomplete="off" value="OnHarassmentByDiscomEmployee" />
+                        <label class="btn" style="background: #16E2F5; color: white;" for="rdoOnHarassmentByDiscomEmployee">OnHarassmentByDiscomEmployee</label>
                     </div>
                     <div class="col-12 col-lg-2">
                         <input type="radio" class="btn-check" name="options" id="rdoTheftInformation" autocomplete="off" value="TheftInformation" />
@@ -486,8 +486,8 @@
                         <label class="btn" style="background: #7D0552; color: white;" for="rdoServiceLineRelated">ServiceLineRelated</label>
                     </div>
                     <div class="col-12 col-lg-2">
-                        <input type="radio" class="btn-check" name="options" id="rdoWrittenComplaint" autocomplete="off" value="WrittenComplaint" />
-                        <label class="btn" style="background: #4B0150; color: white;" for="rdoWrittenComplaint">WrittenComplaint</label>
+                        <input type="radio" class="btn-check" name="options" id="rdoServiceRequest" autocomplete="off" value="ServiceRequest" />
+                        <label class="btn" style="background: #4B0150; color: white;" for="rdoServiceRequest">ServiceRequest</label>
                     </div>
                 </div>
                 <div class="row">

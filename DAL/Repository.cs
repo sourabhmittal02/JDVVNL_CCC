@@ -359,6 +359,15 @@ namespace ComplaintTracker.DAL
                     //if (response.Contains("avvnlalt"))
                     //{
                     PUSH_SMS_DETAIL_Consumer(modelComplaint, response);
+
+                    ModelSmsAPI modelSmsAPI1 = new ModelSmsAPI();
+                    TextSmsAPI textSmsAPI1 = new TextSmsAPI();
+                    modelSmsAPI1.To = modelComplaint.MOBILE_NO.ToString();
+                    modelSmsAPI1.Smstext = "प्रिय उपभोक्ता, शिकायत क्रमांक " + retStatus + " फाॅल्ट रेक्टिफिकेषन टीम को निर्दिष्ट कर दी गई है। जोधपुर डिस्कॉम।";
+                    modelSmsAPI1.Smstemplete = "1307160688865523002";
+                    string response1 = await textSmsAPI.RegisterComplaintSMSEncode(modelSmsAPI);
+                    log.Information(response.ToString());
+                    PUSH_SMS_DETAIL_Consumer(modelComplaint, response1);
                     //}
                 }
                 else
@@ -1387,12 +1396,13 @@ namespace ComplaintTracker.DAL
                     TextSmsAPI textSmsAPI1 = new TextSmsAPI();
                     modelSmsAPI_FRT.To = modelRemark.Assign_FRTMobile.ToString();
                     modelSmsAPI_FRT.Smstemplete = "1307160472989225821";
+                    string address = modelRemark.ADDRESS1 + "," + modelRemark.ADDRESS2 + "," + modelRemark.ADDRESS3;
                     if (modelRemark.ASSIGNEEId == 8)
                     {
-                        modelSmsAPI_FRT.Smstext = "Dear FRT Complaint has been assigned to you with the details below COMPLAINT TYPE : " + modelRemark.COMPLAINT_TYPE + " ,COMPLAINT NO: " + modelRemark.COMPLAINT_NO + " ,NAME OF CONSUMER: " + modelRemark.NAME + " ,ADDRESS OF CONSUMER: " + modelRemark.ADDRESS1 + "," + modelRemark.ADDRESS2 + ", Mobile No. " + modelRemark.MOBILE_NO + "-JDVVNL";
+                        modelSmsAPI_FRT.Smstext = "Dear FRT Complaint has been assigned to you with the details below COMPLAINT TYPE : " + modelRemark.COMPLAINT_TYPE + " ,COMPLAINT NO: " + modelRemark.COMPLAINT_NO + " ,NAME OF CONSUMER: " + modelRemark.NAME + " ,ADDRESS OF CONSUMER: " + address.Substring(0, 10) + ", Mobile No. " + modelRemark.MOBILE_NO + "-JDVVNL";
                     }
                     else{
-                        modelSmsAPI_FRT.Smstext = "Dear Sir Complaint has been assigned to you with the details below COMPLAINT TYPE : " + modelRemark.COMPLAINT_TYPE + " ,COMPLAINT NO: " + modelRemark.COMPLAINT_NO + " ,NAME OF CONSUMER: " + modelRemark.NAME + " ,ADDRESS OF CONSUMER: " + modelRemark.ADDRESS1 + "," + modelRemark.ADDRESS2 + ", Mobile No. " + modelRemark.MOBILE_NO + "-JDVVNL";
+                        modelSmsAPI_FRT.Smstext = "Dear Sir Complaint has been assigned to you with the details below COMPLAINT TYPE : " + modelRemark.COMPLAINT_TYPE + " ,COMPLAINT NO: " + modelRemark.COMPLAINT_NO + " ,NAME OF CONSUMER: " + modelRemark.NAME + " ,ADDRESS OF CONSUMER: " + address.Substring(0, 10) + ", Mobile No. " + modelRemark.MOBILE_NO + "-JDVVNL";
                     }
                     string response1 = await textSmsAPI1.RegisterComplaintSMS(modelSmsAPI_FRT);
                     modelRemark.SMS = modelSmsAPI_FRT.Smstext;

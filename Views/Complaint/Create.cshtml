@@ -148,7 +148,6 @@
             }
 
             function fillArea(selectedCountry) {
-
                 $.ajax({
                     type: "GET",
                     url: '/Complaint/GetAreaCode',
@@ -205,7 +204,21 @@
 
 
 
-        $('#Consumertype').change(function () {
+            $('#Consumertype').change(function () {
+                $('#NAME').val('');
+                $('#LANDMARK').val('');
+                $('#FATHER_NAME').val('');
+                $('#ADDRESS1').val('');
+                $('#MOBILE_NO').val('');
+                $('#ALTERNATE_MOBILE_NO').val('');
+                $('#KNO').val('');
+                $('#ADDRESS2').val('');
+                $('#ADDRESS3').val('');
+                $('#LANDLINE_NO').val('');
+                $('#CONSUMER_STATUS').val('');
+                $('#EMAIL').val('');
+                $('#FEEDER_NAME').val('');
+                $('#ACCOUNT_NO').val('');
             var consumerType = $("#Consumertype").val();
             if (consumerType == 1) {
                 $('.pubMobile').val('');

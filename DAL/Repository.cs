@@ -1459,7 +1459,7 @@ namespace ComplaintTracker.DAL
             }
             return lstComplaintSource;
         }
-        public static int ReopenComplaint(Int64 s, int userID)
+        public static int ReopenComplaint(Int64 s, string remark,int userID)
         {
             int retStatus = 0;
             string retMsg = String.Empty; ;
@@ -1476,6 +1476,7 @@ namespace ComplaintTracker.DAL
             parmretMsg.Direction = ParameterDirection.Output;
             SqlParameter[] param ={
                 new SqlParameter("@COMPLAINT_NO",s),
+                new SqlParameter("@remark",remark),
                 new SqlParameter("@UserID",userID),
                     parmretStatus,parmretMsg};
 

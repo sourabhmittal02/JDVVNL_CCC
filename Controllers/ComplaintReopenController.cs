@@ -28,9 +28,9 @@ namespace ComplaintTracker.Controllers
             return Json(jsonData, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ReopenComplaint_Save(Int64 id)
+        public ActionResult ReopenComplaint_Save(Int64 id,string remark)
         {
-            int complaintNo = Repository.ReopenComplaint(id, Convert.ToInt32(Session["UserID"].ToString()));
+            int complaintNo = Repository.ReopenComplaint(id, remark, Convert.ToInt32(Session["UserID"].ToString()));
             return RedirectToAction("ReopenComplaints");
 
         }

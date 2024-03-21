@@ -1486,8 +1486,8 @@ namespace ComplaintTracker.DAL
             {
                 SqlHelper.ExecuteNonQuery(HelperClass.Connection, CommandType.StoredProcedure, "Complaint_Repoen", param);
 
-                if (param[2].Value != DBNull.Value)// status
-                    retStatus = Convert.ToInt32(param[2].Value);
+                if (param[3].Value != DBNull.Value)// status
+                    retStatus = Convert.ToInt32(param[3].Value);
                 else
                     retStatus = 0;
             }

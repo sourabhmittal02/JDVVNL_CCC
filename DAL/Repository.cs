@@ -365,8 +365,9 @@ namespace ComplaintTracker.DAL
                     modelSmsAPI1.To = modelComplaint.MOBILE_NO.ToString();
                     modelSmsAPI1.Smstext = "प्रिय उपभोक्ता, शिकायत क्रमांक " + retStatus + " फाॅल्ट रेक्टिफिकेषन टीम को निर्दिष्ट कर दी गई है। जोधपुर डिस्कॉम।";
                     modelSmsAPI1.Smstemplete = "1307160688865523002";
-                    string response1 = await textSmsAPI.RegisterComplaintSMSEncode(modelSmsAPI);
-                    log.Information(response.ToString());
+                    string response1 = await textSmsAPI1.RegisterComplaintSMSEncode(modelSmsAPI1);
+                    modelComplaint.SMS = modelSmsAPI1.Smstext;
+                    log.Information(response1.ToString());
                     PUSH_SMS_DETAIL_Consumer(modelComplaint, response1);
                     //}
                 }

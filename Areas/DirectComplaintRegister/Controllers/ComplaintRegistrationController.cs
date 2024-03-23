@@ -279,5 +279,10 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
                 return false;
             }
         }
+
+        public ActionResult webchat()
+        {
+            return View();
+        }
     }
 }

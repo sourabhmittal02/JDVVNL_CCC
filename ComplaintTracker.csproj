@@ -385,6 +385,8 @@
     <Content Include="Areas\DirectComplaintRegister\Views\ComplaintRegistration\Create.cshtml" />
     <Content Include="Areas\DirectComplaintRegister\Views\ComplaintRegistration\_ConsumerContactSelection.cshtml" />
     <Content Include="Areas\DirectComplaintRegister\Views\ComplaintRegistration\_powerOutage.cshtml" />
+    <Content Include="Areas\DirectComplaintRegister\Views\ComplaintRegistration\webchat.cshtml" />
+    <Content Include="Areas\DirectComplaintRegister\Views\Shared\_Layoutchat.cshtml" />
     <None Include="Models\.editorconfig" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Chart.min.js" />

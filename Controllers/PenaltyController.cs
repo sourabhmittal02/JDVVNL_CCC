@@ -58,7 +58,7 @@ namespace ComplaintTracker.Controllers
             return View();
         }
 
-        public ActionResult SaveCCCAgentShort(string fromDate, string number)
+        public ActionResult SaveCCCAgentShort(string fromDate, string number, string UniformType)
         {
             CCCAgent modelCCCAgent = new CCCAgent();
             modelCCCAgent.From_Date = fromDate;

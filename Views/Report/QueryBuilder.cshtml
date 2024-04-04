@@ -1,0 +1,369 @@
+﻿@{
+    ViewBag.Title = "QueryBuilder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="header">
+    <h1 class="header-title">
+        Query Builder Report
+    </h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="~/Dashboard/Index">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Query Builder Report</li>
+        </ol>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Query Builder</h5>
+                <h6 class="card-subtitle text-muted">
+                    Description of Report
+                </h6>
+            </div>
+            
+            <div class="card-body">
+                <table class="table m-3" style="box-shadow: 2px 2px 5px 5px #e4dddd;margin:0rem !important" id="tblItem">
+                    <thead class="bg-light">
+                        <tr>
+                            <th></th>
+                            <th>Item</th>
+                            <th>Criteria</th>
+                            <th>Value</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input type="radio" id="rdoCondition1" name="rdoCondition" value="and" checked /> And
+                                <input type="radio" id="rdoCondition2" name="rdoCondition" value="or" /> Or
+                            </th>
+                            <th>
+                                <select id="cmbItem" class="form-control">
+                                    <option value="">Select Field</option>
+                                    @foreach (var field in ViewBag.Fields)
+                                    {
+                                        <option value="@field">@field</option>
+                                    }
+                                </select>
+                            </th>
+                            <th>
+                                <select id="cmdCondition" class="form-control"></select>
+                            </th>
+                            <th>
+                                <input id="txtValue" name="txtValue" placeholder="Value" type="text" class="form-control" />
+                                <input id="txtDate" name="txtDate" placeholder="Date" type="date" class="form-control" />
+                                <select id="cmbOfficeCode" class="form-control">
+                                    <option value="">Select Field</option>
+                                    @foreach (var field in ViewBag.OfficeCode)
+                                    {
+                                        <option value="@field.OfficeId">@field.OfficeCode</option>
+                                    }
+                                </select>
+                                <select id="cmbComType" class="form-control">
+                                    <option value="">Select Field</option>
+                                    @foreach (var field in ViewBag.Com_Type)
+                                    {
+                                        <option value="@field.ComplaintTypeId">@field.ComplaintType</option>
+                                    }
+                                </select>
+                                <select id="cmbComSource" class="form-control">
+                                    <option value="">Select Field</option>
+                                    @foreach (var field in ViewBag.Com_Source)
+                                    {
+                                        <option value="@field.Value">@field.Text</option>
+                                    }
+                                </select>
+                                @Html.DropDownList("cmbComStatus", new List<SelectListItem>
+                                {
+                                new SelectListItem{ Text="All", Value = "0" },
+                                   new SelectListItem{ Text="Pending", Value = "1" },
+                                   new SelectListItem{ Text="Closed", Value = "2" },
+                                     new SelectListItem{ Text="ReOpen", Value = "3" },
+                                }, new { @class = "form-control", id = "cmbComStatus", name = "cmbComStatus" })
+                            </th>
+                            <th>
+                                <input type="button" id="btnAdd" value="Add" class="btn btn-warning" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@if (Model != null)
+                            {
+                                foreach (var items in Model)
+                                {
+                                    <tr>
+                                        <td hidden="hidden">@items.Id</td>
+                                        <td>@items.Field</td>
+                                        <td>@items.Value1</td>
+                                        <td>@items.Value2</td>
+                                        <td>
+                                            <button onclick="itemDelete(this)" class="deleterow btn btn-danger fa fa-trash">DEL</button>
+                                        </td>
+                                    </tr>
+                                }
+                            }*@
+                    </tbody>
+                </table>
+                <div class="form-group float-right mt-4" style="float:right">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" id="btnSave" name="btnSave" value="Search" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Raw Data</h5>
+            </div>
+            <div class="card-body">
+                <table id="datatables-buttons" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Knumber</th>
+                            <th>Consumer Name</th>
+                            <th>Complaint Date</th>
+                            <th>Duration</th>
+                            <th>Complaint no.</th>
+                            <th>Office Name</th>
+                            <th>Address</th>
+                            <th>Complaint Type</th>
+                            <th>SubComplaint Type</th>
+                            <th>Complaint Source</th>
+                            <th>Complaint Status</th>
+                        </tr>
+                    </thead>
+
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Show txtValue and hide txtDate and cmdValues
+        $('#txtValue').show();
+        $('#txtDate').hide();
+        $('#cmbComType').hide();
+        $('#cmbComSource').hide();
+        $('#cmbComStatus').hide();
+        $('#cmbOfficeCode').hide();
+    });
+
+    $('#cmbItem').change(function () {
+        var field = $(this).val();
+        $('#cmdCondition').empty();
+
+        if (field == "Complaint date") {
+            $('#cmdCondition').append('<option value="Equal">Equal</option>');
+            $('#txtValue').hide();
+            $('#txtDate').show();
+            $('#cmbComType').hide();
+            $('#cmbComSource').hide();
+            $('#cmbComStatus').hide();
+            $('#cmbOfficeCode').hide();
+        } else if (field == "Complaint type") {
+            $('#cmdCondition').append('<option value="Equal">Equal</option>');
+            $('#txtValue').hide();
+            $('#txtDate').hide();
+            $('#cmbComType').show();
+            $('#cmbComSource').hide();
+            $('#cmbComStatus').hide();
+            $('#cmbOfficeCode').hide();
+        } else if (field == "Complaint source") {
+            $('#cmdCondition').append('<option value="Equal">Equal</option>');
+            $('#txtValue').hide();
+            $('#txtDate').hide();
+            $('#cmbComType').hide();
+            $('#cmbComSource').show();
+            $('#cmbComStatus').hide();
+            $('#cmbOfficeCode').hide();
+        } else if (field == "Complaint status") {
+            $('#cmdCondition').append('<option value="Equal">Equal</option>');
+            $('#txtValue').hide();
+            $('#txtDate').hide();
+            $('#cmbComType').hide();
+            $('#cmbComSource').hide();
+            $('#cmbComStatus').show();
+            $('#cmbOfficeCode').hide();
+        } else if (field == "Office code") {
+            $('#cmdCondition').append('<option value="Equal">Equal</option>');
+            $('#txtValue').hide();
+            $('#txtDate').hide();
+            $('#cmbComType').hide();
+            $('#cmbComSource').hide();
+            $('#cmbComStatus').hide();
+            $('#cmbOfficeCode').show();
+        } else {
+            $('#cmdCondition').append('<option value="Equal">Equal</option><option value="Contains">Contains</option>');
+            $('#txtValue').show();
+            $('#txtDate').hide();
+            $('#cmbComType').hide();
+            $('#cmbComSource').hide();
+            $('#cmbComStatus').hide();
+            $('#cmbOfficeCode').hide();
+        }
+    });
+    $("body").on("click", "#btnAdd", function () {
+        var txtName = $("#cmbItem :selected").text();
+        var txtId = $('#tblItem tbody tr').length+1;
+        var rdoCondition = $('input[name="rdoCondition"]:checked').val();
+        $("#rdoCondition1").attr('disabled', true);
+        $("#rdoCondition2").attr('disabled', true);
+        var txtCondition = $("#cmdCondition :selected").text();
+        var txtValue;
+        var txtID;
+        if (txtName == "Complaint date") {
+            txtValue = $('#txtDate').val();
+            txtID = $('#txtDate').val();
+        } else if (txtName == "Complaint status") {
+            txtValue = $("#cmbComStatus :selected").text();
+            txtID = $("#cmbComStatus :selected").val();
+        } else if (txtName == "Complaint source") {
+            txtValue = $("#cmbComSource :selected").text();
+            txtID = $("#cmbComSource :selected").val();
+        } else if (txtName == "Complaint type") {
+            txtValue = $("#cmbComType :selected").text();
+            txtID = $("#cmbComType :selected").val();
+        } else if (txtName == "Office code") {
+            txtValue = $("#cmbOfficeCode :selected").text();
+            txtID = $("#cmbOfficeCode :selected").val();
+        } else {
+            txtValue = $('#txtValue').val();
+            txtID = $('#txtValue').val();
+        }
+
+        if (txtName == "Complaint date") {
+            txtName = "A.COMPLAINT_DATE";
+        } else if (txtName == "Complaint status") {
+            txtName = "A.COMPLAINT_STATUS";
+        } else if (txtName == "Complaint source") {
+            txtName = "A.COMPLAINT_SOURCE_ID";
+        } else if (txtName == "Complaint type") {
+            txtName = "A.COMPLAINT_TYPE";
+        } else if (txtName == "Office code") {
+            txtName = "A.OFFICE_CODE";
+        } else if (txtName == "Complaint no") {
+            txtName = "A.Complaint_no";
+        } else if (txtName == "Mobile") {
+            txtName = "A.Mobile_no";
+        }
+
+        var tr = '<tr>';
+        tr += '<td hidden="hidden">' + txtId + '</td>';
+        tr += '<td>' + txtName + '</td>';
+        tr += '<td>' + rdoCondition + '</td>';
+        tr += '<td>' + txtCondition + '</td>';
+        tr += '<td>' + txtValue + '</td>';
+        tr += '<td style="display:none;">' + txtID + '</td>';
+        tr += '<td><button onclick="itemDelete(this)" class="deleterow btn btn-danger fa fa-trash"></button></td>';
+        tr += '</tr>';
+        $('tbody').append(tr);
+        formClear();
+        $("#cmbItem").focus();
+    });
+    $("body").on("click", "#btnSave", function () {
+
+        //Loop through the Table rows and build a JSON array.
+        var queries = new Array();
+        $("#tblItem TBODY TR").each(function () {
+            var row = $(this);
+            var query = {};
+            query.Id = row.find("TD").eq(0).html();
+            query.item = row.find("TD").eq(1).html();
+            query.Condition = row.find("TD").eq(2).html();
+            query.criteria = row.find("TD").eq(3).html();
+            query.val = row.find("TD").eq(5).html();
+            queries.push(query);
+        });
+
+        var data = JSON.stringify({
+            Meta: queries
+        });
+
+        console.log(data);
+        //save Query
+            $.ajax({
+                type: "POST",
+                url: "/Report/AddQuery",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: data,
+                success: function (data) {
+                    
+                        var datatablesButtons = $('#datatables-buttons').DataTable(
+                            {
+                                data: data,
+                                columns: [
+                                    {
+                                        'data': 'KNO',
+                                    },
+                                    { 'data': 'Consumer_name' },
+                                    { 'data': 'ComplaintDate' },
+                                    { 'data': 'Duration' },
+
+                                    { 'data': 'Complaint_no' },
+
+                                    { 'data': 'office_name' },
+                                    { 'data': 'Address' },
+                                    { 'data': 'Complaint_Type' },
+                                    { 'data': 'Sub_Complaint_Type' },
+                                    { 'data': 'Complaint_Source' },
+                                    { 'data': 'Complaint_Status' },
+
+                                ],
+                                bLengthChange: true,
+                                /*                            lengthMenu: [[10, 15, 20, 50, 100, -1], [10, 15, 20, 50, 100, "All"]],*/
+                                /*  bFilter: true,*/
+                                //bPaginate: true,
+                                scrollY: '600px',
+                                scrollCollapse: true,
+                                //"sScrollX": "200%",
+                                processing: true,
+                                fixedHeader: true,
+                                fixedColumns: {
+                                    leftColumns: 1,
+                                    rightColumns: 1
+                                },
+                                buttons: ["copy", 'csv', 'print'],
+                                //buttons: ['print'],
+                                //scrollX: true,
+                                destroy: true,
+                                //columnDefs: [{
+                                //    "targets": [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+                                //    "orderable": false,
+                                //}]
+                            });
+                        datatablesButtons.buttons().container().appendTo("#datatables-buttons_wrapper .col-md-6:eq(0)");
+
+                    
+                }
+            });
+
+    });
+    function formClear() {
+        $("#cmbItem").val("");
+        $('#txtValue').val("");
+        $('#txtDate').val("");
+        $('#cmdValues').val("");
+        $('#txtValue').show();
+        $('#txtDate').hide();
+        $('#cmbComType').hide();
+        $('#cmbComSource').hide();
+        $('#cmbComStatus').hide();
+        $('#cmbOfficeCode').hide();
+
+    }
+    function itemDelete(ctl) {
+        $(ctl).parents("tr").remove();
+    }
+</script>
+

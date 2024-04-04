@@ -2446,6 +2446,39 @@ namespace ComplaintTracker.DAL
             return lstReportdata;
         }
 
+        public static List<ModelQueryBuilderReport> ReportQueryBuilder(string sql, string OfficeID)
+        {
+            List<ModelQueryBuilderReport> lstReportdata = new List<ModelQueryBuilderReport>();
+            ModelQueryBuilderReport objData = new ModelQueryBuilderReport();
+            SqlParameter[] param ={
+                    new SqlParameter("@OFFICE_ID",OfficeID),
+                     new SqlParameter("@Where_Clause",sql)
+
+            };
+            DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "Query_Builder", param);
+            if (ds.Tables.Count > 0)
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    objData = new ModelQueryBuilderReport();
+                    objData.KNO = Convert.ToString(dr.ItemArray[0]);
+                    objData.Consumer_name = Convert.ToString(dr.ItemArray[1]);
+                    objData.ComplaintDate = Convert.ToString(dr.ItemArray[2].ToString());
+                    objData.Duration = Convert.ToString(dr.ItemArray[3].ToString());
+                    objData.Complaint_no = Convert.ToString(dr.ItemArray[4].ToString());
+                    objData.office_name = Convert.ToString(dr.ItemArray[5].ToString());
+                    objData.Address = Convert.ToString(dr.ItemArray[6].ToString());
+                    objData.Complaint_Type = Convert.ToString(dr.ItemArray[7].ToString());
+                    objData.Sub_Complaint_Type = Convert.ToString(dr.ItemArray[8].ToString());
+                    objData.Complaint_Source = Convert.ToString(dr.ItemArray[9].ToString());
+                    objData.Complaint_Status = Convert.ToString(dr.ItemArray[10].ToString());
+
+                    lstReportdata.Add(objData);
+                }
+            }
+            return lstReportdata;
+        }
+
 
         public static List<ModelOutageReport> ReportOutageData(ModelReport dataObject)
         {

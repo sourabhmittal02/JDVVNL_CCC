@@ -26,7 +26,19 @@ namespace ComplaintTracker.Models
         public DateTime TIME_STAMP { get; set; }
     }
 
+    public class RuleCriteria
+    {
+        public List<Metas> Meta { get; set; }
 
+    }
+    public class Metas
+    {
+        public int Id { get; set; }
+        public string item { get; set; }
+        public string criteria { get; set; }
+        public string Condition { get; set; }
+        public string val { get; set; }
+    }
 
     public class COMPLAINT
     {

@@ -23,4 +23,23 @@ namespace ComplaintTracker.Models
         public string OverAllResolved { get; set; }
 
     }
+
+    public class ModelQueryBuilderReport
+    {
+        public string KNO { get; set; }
+
+        public string Consumer_name { get; set; }
+
+        public string ComplaintDate { get; set; }
+        public string Duration { get; set; }
+
+        public string Complaint_no { get; set; }
+        public string office_name { get; set; }
+        public string Address { get; set; }
+        public string Complaint_Type { get; set; }
+        public string Sub_Complaint_Type { get; set; }
+        public string Complaint_Source { get; set; }
+        public string Complaint_Status { get; set; }
+
+    }
 }

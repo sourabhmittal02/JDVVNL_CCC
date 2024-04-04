@@ -741,7 +741,32 @@ namespace ComplaintTracker.Controllers
             return View(dt);
         }
         #endregion
+        public ActionResult QueryBuilder()
+        {
+            ViewBag.Fields = new List<string> { "KNO", "Complaint no", "Mobile", "Office code", "Complaint date", "Complaint type", "Complaint status", "Complaint source" };
+            COMPLAINT objComplaint = new COMPLAINT();
+            //objComplaint.ComplaintTypeCollection = Repository.GetComplaintTypeList("0"); 
+            ViewBag.Com_Type = Repository.GetComplaintTypeList("0");
+            ViewBag.Com_Source = Repository.ComplaintSourceJson();
+            ViewBag.OfficeCode = Repository.GetOfficeList(Session["OFFICE_ID"].ToString());
+            return View();
+        }
+        public ActionResult AddQuery(RuleCriteria dataObject)
+        {
+            string sql = "";
+            foreach (var item in dataObject.Meta)
+            {
+                if (item.criteria == "Equal")
+                    sql += item.item + "=" + item.val + " " + item.Condition + " ";
+                else
+                    sql += item.item + " like %" + item.val + "% " + item.Condition + " ";
 
+            }
+            List<ModelQueryBuilderReport> data = new List<ModelQueryBuilderReport>();
+            data = Repository.ReportQueryBuilder(sql, Session["OFFICE_ID"].ToString());
+            var jsonData = data;
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult ExportToExcelRawComplaint(string fromDate, string toDate, string ddlSource,string ddlOfficecode ,string ComplaintTypeId)

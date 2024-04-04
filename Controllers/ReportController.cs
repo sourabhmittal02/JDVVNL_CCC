@@ -397,7 +397,7 @@ namespace ComplaintTracker.Controllers
         #region Missing Agents Penalty Report
         public JsonResult ReportMissingAgentsPenaltySearch(ModelReport dataObject)
         {
-            List<UniformPanalty> data = new List<UniformPanalty>();
+            List<MissingAgentPanalty> data = new List<MissingAgentPanalty>();
 
             data = Repository.ReportMissingAgentsPenalty(dataObject);
             var jsonData = data;

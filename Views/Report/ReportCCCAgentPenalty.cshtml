@@ -43,6 +43,9 @@
                         data: data,
                         columns: [
                             {
+                                'data': 'Panelty_Type',
+                        },
+                            {
                                 'data': 'TotalAgents',
                             },
                             { 'data': 'TotalPaneltyAmount' },
@@ -132,6 +135,7 @@
                 <table id="datatables-buttons" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
+                            <th>Panelty Type</th>
                             <th>Total Number of agent short :</th>
                             <th>Total Penalty Amount(Rs 200/ on each Agent):</th>
                         </tr>
@@ -152,6 +156,16 @@
                             <td>1)</td>
                             <td>Default in not deputing call center agent in require number in a shift</td>
                             <td>RS.200/-per missing agent per shift</td>
+                        </tr>
+                        <tr>
+                            <td>2)</td>
+                            <td>Default in not deputing HelpDesk agent in require number in a shift</td>
+                            <td>RS.200/-per missing agent per shift</td>
+                        </tr>
+                        <tr>
+                            <td>3)</td>
+                            <td>Default in not deputing FRT agent in require number in a shift</td>
+                            <td>RS.1500/-per missing agent per shift</td>
                         </tr>
                     </tbody>
 

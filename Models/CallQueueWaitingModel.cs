@@ -49,6 +49,13 @@ namespace ComplaintTracker.Models
         public string TotalAgents { get; set; }
         public string TotalPaneltyAmount { get; set; }
     }
+
+    public class MissingAgentPanalty
+    {
+        public string Panelty_Type { get; set; }
+        public string TotalAgents { get; set; }
+        public string TotalPaneltyAmount { get; set; }
+    }
     public class NonITPanalty
     {
         public string Type { get; set; }

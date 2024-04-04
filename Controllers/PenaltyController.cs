@@ -58,12 +58,13 @@ namespace ComplaintTracker.Controllers
             return View();
         }
 
-        public ActionResult SaveCCCAgentShort(string fromDate, string number, string UniformType)
+        public ActionResult SaveCCCAgentShort(string fromDate, string number, string ddlUniformType)
         {
             CCCAgent modelCCCAgent = new CCCAgent();
             modelCCCAgent.From_Date = fromDate;
             modelCCCAgent.EnterByUserID = Convert.ToString(Session["UserID"]);
             modelCCCAgent.number = Convert.ToInt64(number);
+            modelCCCAgent.UniformType = Convert.ToInt16(ddlUniformType);
             Repository.SaveCCCAgent(modelCCCAgent);
             return RedirectToAction("CCCAgentShort", "Penalty");
         }

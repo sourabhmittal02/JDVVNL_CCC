@@ -2025,10 +2025,10 @@ namespace ComplaintTracker.DAL
             return lstReportdata;
         }
 
-        public static List<UniformPanalty> ReportMissingAgentsPenalty(ModelReport dataObject)
+        public static List<MissingAgentPanalty> ReportMissingAgentsPenalty(ModelReport dataObject)
         {
-            List<UniformPanalty> lstReportdata = new List<UniformPanalty>();
-            UniformPanalty objData = new UniformPanalty();
+            List<MissingAgentPanalty> lstReportdata = new List<MissingAgentPanalty>();
+            MissingAgentPanalty objData = new MissingAgentPanalty();
             SqlParameter[] param ={
                     new SqlParameter("@FROMDATE",dataObject.fromdate),
                      new SqlParameter("@TODATE",dataObject.todate)
@@ -2039,9 +2039,10 @@ namespace ComplaintTracker.DAL
             {
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    objData = new UniformPanalty();
-                    objData.TotalAgents = Convert.ToString(dr.ItemArray[0]);
-                    objData.TotalPaneltyAmount = Convert.ToString(dr.ItemArray[1].ToString());
+                    objData = new MissingAgentPanalty();
+                    objData.Panelty_Type = Convert.ToString(dr.ItemArray[0]);
+                    objData.TotalAgents = Convert.ToString(dr.ItemArray[1]);
+                    objData.TotalPaneltyAmount = Convert.ToString(dr.ItemArray[2].ToString());
                     lstReportdata.Add(objData);
                 }
             }
@@ -3295,7 +3296,8 @@ namespace ComplaintTracker.DAL
         {
             SqlParameter[] param ={new SqlParameter("@FromDate",dataObject.From_Date),
                 new SqlParameter("@UserID",dataObject.EnterByUserID),
-                new SqlParameter("@number",dataObject.number)
+                new SqlParameter("@number",dataObject.number),
+                new SqlParameter("@UniformType",dataObject.UniformType)
 
 
             };

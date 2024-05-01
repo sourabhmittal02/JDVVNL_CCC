@@ -42,6 +42,7 @@ namespace ComplaintTracker.Models
 
     public class COMPLAINT
     {
+        public bool IsResolvedByFrt { get; set; }
         public long OFFICE_CODE_ID { get; set; }
         [NotMapped]
         public List<ModelOfficeCode> OfficeCodeCollection { get; set; }

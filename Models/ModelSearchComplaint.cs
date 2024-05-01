@@ -21,6 +21,7 @@ namespace ComplaintTracker.Models
         public string SUB_COMPLAINT_TYPE { get; set; }
         public string SOURCE_NAME { get; set; }
         public string COMPLAINT_status { get; set; }
+        public string Current_status { get; set; }
         public string COMPLAINT_SOURCE { get; set; }
         public string ASSIGNED_TO { get; set; }
         public string OUTAGE_TYPE { get; set; }

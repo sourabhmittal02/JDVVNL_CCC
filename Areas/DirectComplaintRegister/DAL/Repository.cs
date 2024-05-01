@@ -401,8 +401,8 @@ namespace DirectComplaintRegister.DAL
                     TextSmsAPI textSmsAPI = new TextSmsAPI();
 
                     modelSmsAPI.To = modelComplaint.MOBILE_NO.ToString();
-                    modelSmsAPI.Smstext = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए \"\"VIDYUT SAATHI\"\" ऐप का प्रयोग करें। जोधपुर डिस्कॉम।";
-                    modelSmsAPI.Smstemplete = "1307160688860548923";
+                    modelSmsAPI.Smstext = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए https://bit.ly/JDVVNLCCC का प्रयोग करें। जोधपुर डिस्कॉम।";
+                    modelSmsAPI.Smstemplete = "1307171445679499387";
                     string response = await textSmsAPI.RegisterComplaintSMSEncode(modelSmsAPI);
                     modelComplaint.SMS = modelSmsAPI.Smstext;
                     log.Information(response.ToString());

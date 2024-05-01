@@ -350,8 +350,8 @@ namespace ComplaintTracker.DAL
                     TextSmsAPI textSmsAPI = new TextSmsAPI();
 
                     modelSmsAPI.To = modelComplaint.MOBILE_NO.ToString();
-                    modelSmsAPI.Smstext = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए \"\"VIDYUT SAATHI\"\" ऐप का प्रयोग करें। जोधपुर डिस्कॉम।";
-                    modelSmsAPI.Smstemplete = "1307160688860548923";
+                    modelSmsAPI.Smstext = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए https://bit.ly/JDVVNLCCC का प्रयोग करें। जोधपुर डिस्कॉम।";
+                    modelSmsAPI.Smstemplete = "1307171445679499387";
                     string response = await textSmsAPI.RegisterComplaintSMSEncode(modelSmsAPI);
                     modelComplaint.SMS = modelSmsAPI.Smstext;
                     log.Information(response.ToString());
@@ -842,6 +842,8 @@ namespace ComplaintTracker.DAL
                     objBlank.MOBILE_NO = dr.ItemArray[27].ToString();
                     objBlank.ALTERNATE_MOBILE_NO = dr.ItemArray[28].ToString();
                     objBlank.REMARK = dr.ItemArray[29].ToString();
+
+                    objBlank.Current_status = dr.ItemArray[31].ToString();
                     objBlank.Total = TotalRec;
                     lstComplaintSource.Add(objBlank);
                 }
@@ -1099,13 +1101,15 @@ namespace ComplaintTracker.DAL
             SqlParameter parmretMsg = new SqlParameter();
             parmretMsg.ParameterName = "@retMsg";
             parmretMsg.DbType = DbType.String;
-            parmretMsg.Size = 8;
+            parmretMsg.Size = 18;
             parmretMsg.Direction = ParameterDirection.Output;
 
             SqlParameter[] param ={
                 new SqlParameter("@COMPLAINT_NO",modelRemark.COMPLAINT_NO),
                     new SqlParameter("@REMARK",modelRemark.REMARKS),
                     new SqlParameter("@USER_ID",modelRemark.UserId),
+
+                    new SqlParameter("@IsResolvedByFRT",modelRemark.IsResolvedByFrt),
                     parmretStatus,parmretMsg};
 
 

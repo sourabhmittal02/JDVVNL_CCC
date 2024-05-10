@@ -370,7 +370,7 @@
                         data: 'COMPLAINT_NO',
                         name: '',
                         render: function (data, type, row, meta) {
-                            if (row.COMPLAINT_status != "Closed" && (id == 2)) {
+                            if (row.COMPLAINT_status != "Closed" && (id == 2 || id == 3)) {
                                 return '<button href="#" type="submit" class="btn btn-warning btnShadow" onclick="Assign(' + row.COMPLAINT_NO + ')">Assign</a>'
                             } else { return '' }
                         },

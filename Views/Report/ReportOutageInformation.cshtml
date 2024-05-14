@@ -89,6 +89,10 @@
     });
     function Savereq() {
         var dataObject = new Object();
+        if ($('#ddlOfficecode').val() == 0) { alert('Select Office code')}
+        
+        
+        
         dataObject.OfficeCode = $('#ddlOfficecode').val();
         dataObject.COLONIES = $('#txtColonies').val();
         dataObject.fromdate = $('#fromDate').val();

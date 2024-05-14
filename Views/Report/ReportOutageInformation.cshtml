@@ -89,10 +89,10 @@
     });
     function Savereq() {
         var dataObject = new Object();
-        if ($('#ddlOfficecode').val() == 0) { alert('Select Office code')}
-        
-        
-        
+        if ($('#ddlOfficecode').val() == 0) { alert('Select Office code') }
+        else { 
+
+
         dataObject.OfficeCode = $('#ddlOfficecode').val();
         dataObject.COLONIES = $('#txtColonies').val();
         dataObject.fromdate = $('#fromDate').val();
@@ -129,7 +129,7 @@
                 $('#ddlOfficecode').val(null).trigger('change');
                 $('#ddlComplaintType').val(null).trigger('change');
                 swal("Good job!", "Saved Successfully!", "success");
-                
+
                 loadGrid();
             },
 
@@ -138,6 +138,7 @@
             }
 
         });
+    }
 
     }
 

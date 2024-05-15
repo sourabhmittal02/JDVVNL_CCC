@@ -16,6 +16,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.IO;
 using System.Net;
 using System.Text;
+using ComplaintTracker.DAL;
 
 namespace ComplaintTracker.ExternalAPI
 {
@@ -23,6 +24,8 @@ namespace ComplaintTracker.ExternalAPI
     {
         static readonly Serilog.ILogger log = EventLogger._log;
         ModelSmsAPI modelsmsClone = null;
+        private static string JDVVNLComplaintApiURL = System.Configuration.ConfigurationManager.AppSettings["JDVVNLComplaintApiURL"];
+        private string SendSmsWeb = System.Configuration.ConfigurationManager.AppSettings["JDVVNLComplaintSendSmsWeb"];
         public async Task<string> RegisterComplaintSMS(ModelSmsAPI modelsms)
         {
             log.Information("IN RegisterComplaintSMS");
@@ -171,6 +174,26 @@ namespace ComplaintTracker.ExternalAPI
                 sb1.Append(sec_key[i].ToString("x2"));
             }
             return sb1.ToString();
+        }
+
+        public async Task<string> RegisterComplaintSendSMSWeb(ModelSmsAPISendSMS modelsms)
+        {
+            var client = new RestClient(JDVVNLComplaintApiURL + SendSmsWeb + "?TYPE=H");
+            var restRequest = new RestRequest();
+            restRequest.Method = Method.POST;
+            restRequest.AddHeader("Accept", "application/json");
+            restRequest.RequestFormat = DataFormat.Json;
+            restRequest.AddJsonBody(modelsms);
+            var response = await client.ExecuteAsync(restRequest);
+            //response.Content
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.Content;
+            }
+            else
+            {
+                return response.Content;
+            }
         }
 
     }

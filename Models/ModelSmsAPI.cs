@@ -42,5 +42,20 @@ namespace ComplaintTracker.Models
 
     }
 
+    public class ModelSmsAPISendSMS
+    {
+        private string _to;
+        private string _smstext;
+        private string _templeteid;
+        private string _id;
+        
+        public string to { get { return _to; } set { _to = value; } }
+        public string smsText { get { return _smstext; } set { _smstext = value; } }
+        public string templeteid { get { return _templeteid; } set { _templeteid = value; } }
+        public string id { get { return _id; } set { _id = value; } }
+
+}
+
+
 
 }

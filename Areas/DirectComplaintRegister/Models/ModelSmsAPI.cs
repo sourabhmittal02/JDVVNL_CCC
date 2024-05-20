@@ -42,5 +42,19 @@ namespace DirectComplaintRegister.Models
 
     }
 
+    public class ModelSmsAPISendSMS
+    {
+        private string _to;
+        private string _smstext;
+        private string _templateid;
+        private string _id;
+
+        public string to { get { return _to; } set { _to = value; } }
+        public string smsText { get { return _smstext; } set { _smstext = value; } }
+        public string templateid { get { return _templateid; } set { _templateid = value; } }
+        public string id { get { return _id; } set { _id = value; } }
+
+    }
+
 
 }

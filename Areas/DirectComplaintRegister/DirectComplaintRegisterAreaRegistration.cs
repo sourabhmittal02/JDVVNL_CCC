@@ -19,6 +19,12 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister
                 "DirectComplaint/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                "CloseComplaintRegister",
+                "CloseComplaint/{controller}/{action}/{id}",
+                new { action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

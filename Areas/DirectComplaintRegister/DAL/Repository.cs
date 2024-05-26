@@ -86,7 +86,7 @@ namespace DirectComplaintRegister.DAL
                     new SqlParameter("@MAXIMUMROWS",dataObject.length)};
 
             log.Debug(" GetComplaintDetails IP " + HelperClass.GetIPHelper() + " Proc Start Time :  " + DateTime.Now.ToString());
-            DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "GetComplaintDetails", param);
+            DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "GetComplaintDetails_V1", param);
             log.Debug(" GetComplaintDetails IP " + HelperClass.GetIPHelper() + " Proc End Time :  " + DateTime.Now.ToString());
 
 
@@ -916,6 +916,8 @@ namespace DirectComplaintRegister.DAL
             return retStatus;
 
         }
+
+       
 
     }
 }

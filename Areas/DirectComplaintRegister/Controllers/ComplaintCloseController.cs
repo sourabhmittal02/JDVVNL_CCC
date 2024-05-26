@@ -21,6 +21,7 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
 
         // GET: Complaint
         static readonly Serilog.ILogger log = EventLogger._log;
+  
         public ActionResult closeSearch()
         {
             ComplaintTracker.Models.COMPLAINT objComplaint = new ComplaintTracker.Models.COMPLAINT();

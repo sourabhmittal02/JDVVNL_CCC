@@ -25,23 +25,8 @@
         border: 1px solid black !important;
     }
 </style>
-
-
-
-
-
-
-
-
-
-
 @section scripts{
-
-
     <script type="text/javascript">
-
-
-
         $(document).ready(function () {
             $('a.toggle-vis').on('click', function (e) {
                 e.preventDefault();
@@ -51,6 +36,20 @@
             });
             document.getElementById("fromDate").value = "";
             document.getElementById("toDate").value = "";
+
+            $('#btnClose').on('click', function (e) {
+                var selectedIds = [];
+                e.preventDefault();
+                $('.select-checkbox').each(function () {
+                    if ($(this).prop("checked")) {
+                        data = $('#datatables-buttons').DataTable().row($(this).parents('tr')).data();
+                        selectedIds.push(data.COMPLAINT_NO);
+                    }
+                });
+
+                alert('Complaint Closed Successfully ' +  JSON.stringify(selectedIds));
+            });
+
         });
         function Search() {
             var id = 1;
@@ -134,16 +133,22 @@
                 buttons: [
                     'colvis'
                 ],
+
                 "columns": [
                     {
-                        'data':'COMPLAINT_NO',
-                        'name': '',
-                        render: function (data, type, row, meta) {
-                                return '<input type="checkbox" href="#" >'
+                        targets: 0,
+                        data: null,
+                        className: 'text-center',
+                        searchable: false,
+                        orderable: false,
+                        render: function (data, type, full, meta) {
+                            return '<input type="checkbox" class="select-checkbox" name="check" value="' + data.COMPLAINT_NO + '">';
                         },
+                        width: "5%"
                     },
+                    { 'data': "COMPLAINT_NO", name: "COMPLAINT_NO", width: "60px", className: "dt-center", visible: false },
                     { 'data': 'COMPLAINT_DATE' },
-                    { data: 'COMPLAINT_NO' },
+                    { 'data': 'COMPLAINT_NO1', name: "COMPLAINT_NO1", },
                     { 'data': 'KNO' },
                 ],
                 "rowCallback": function (row, data, dataIndex) {
@@ -156,8 +161,9 @@
                 }
 
             });
-
         }
+
+
     </script>
 }
 <div class="header">
@@ -239,7 +245,7 @@
                             <div class="col-12 col-lg-12">
                                 <div>
                                     <input type="button" value="Search" class="btn btn-primary btn-block" id="btnSearch" onclick="Search()" name="btnSearch" />
-                                    <input type="button" value="Close Complaint" class="btn btn-google btn-block" id="btnClose" onclick="alert('WIP')" name="btnClose" />
+                                    <input type="button" value="Close Complaint" class="btn btn-google btn-block" id="btnClose" name="btnClose" />
                                 </div>
                             </div>
                         </div>
@@ -251,6 +257,7 @@
                                     <th>Close</th>
                                     <th>Complaint Date</th>
                                     <th>Complaint No.</th>
+                                    <th></th>
                                     <th>K.No.</th>
                                 </tr>
                             </thead>

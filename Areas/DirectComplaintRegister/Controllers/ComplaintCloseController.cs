@@ -35,7 +35,7 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
         [HttpPost]
         public JsonResult GetComplaintSearch(DataTableAjaxPostModel model) //It will be fired from Jquery ajax call
         {
-        //https://localhost:44301/Closecomplaint/ComplaintClose/closeSearch
+        
             ModelSearchComplaint dataObject = new ModelSearchComplaint();
             List<ModelSearchComplaint> data = new List<ModelSearchComplaint>();
             if (ModelState.IsValid)

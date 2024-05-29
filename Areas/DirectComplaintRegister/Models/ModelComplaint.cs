@@ -54,6 +54,7 @@ namespace DirectComplaintRegister.Models
         public string fromdate { get; set; }
         public string todate { get; set; }
         public string assigned_status { get; set; }
+        public Int64 COMPLAINT_NO1 { get; set; }
 
     }
     public class MST_COMPLAINT_STEPS

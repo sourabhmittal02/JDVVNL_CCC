@@ -67,7 +67,7 @@ namespace DirectComplaintRegister.DAL
         public static List<ModelSearchComplaint> GetComplaintDetails(ModelSearchComplaint dataObject)
         {
             int TotalRec = 0;
-
+            DataSet ds = new DataSet();
             List<ModelSearchComplaint> lstComplaintSource = new List<ModelSearchComplaint>();
             ModelSearchComplaint objBlank = new ModelSearchComplaint();
             SqlParameter[] param ={
@@ -86,55 +86,65 @@ namespace DirectComplaintRegister.DAL
                     new SqlParameter("@MAXIMUMROWS",dataObject.length)};
 
             log.Debug(" GetComplaintDetails IP " + HelperClass.GetIPHelper() + " Proc Start Time :  " + DateTime.Now.ToString());
-            DataSet ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "GetComplaintDetails_V1", param);
+            try
+            {
+                ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "GetComplaintDetails_V1", param);
+                if (ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[1].Rows.Count > 0)
+                        TotalRec = Convert.ToInt32(ds.Tables[1].Rows[0][0]);
+                    else
+                        TotalRec = 0;
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        objBlank = new ModelSearchComplaint();
+                        objBlank.KNO = Convert.ToInt64(dr.ItemArray[0].ToString());
+                        objBlank.NAME = dr.ItemArray[1].ToString();
+                        objBlank.COMPLAINT_DATE = dr.ItemArray[2].ToString();
+                        objBlank.DURATION = dr.ItemArray[3].ToString();
+                        objBlank.COMPLAINT_NO = Convert.ToInt64(dr.ItemArray[4].ToString());
+                        objBlank.COMPLAINT_NO1 = Convert.ToInt64(dr.ItemArray[4].ToString());
+                        objBlank.OFFICE_NAME = dr.ItemArray[5].ToString();
+                        objBlank.ADDRESS = dr.ItemArray[6].ToString();
+                        objBlank.COMPLAINT_TYPE = dr.ItemArray[7].ToString();
+                        objBlank.SUB_COMPLAINT_TYPE = dr.ItemArray[8].ToString();
+                        objBlank.SOURCE_NAME = dr.ItemArray[9].ToString();
+                        objBlank.COMPLAINT_status = dr.ItemArray[10].ToString();
+                        objBlank.ASSIGNED_TO = dr.ItemArray[11].ToString();
+                        objBlank.OUTAGE_TYPE = dr.ItemArray[12].ToString();
+                        objBlank.RECTIFICATION = dr.ItemArray[13].ToString();
+                        objBlank.CAUSE = dr.ItemArray[14].ToString();
+                        objBlank.METER_NO = dr.ItemArray[15].ToString();
+                        objBlank.USP_GETFRT = dr.ItemArray[16].ToString();
+
+
+                        objBlank.METER_TYPE = dr.ItemArray[17].ToString();
+                        objBlank.BEFORE_RECTIFICATION = dr.ItemArray[18].ToString();
+                        objBlank.AFTER_RECTIFICATION = dr.ItemArray[19].ToString();
+                        objBlank.ANY_ABNORMALITY = dr.ItemArray[20].ToString();
+                        objBlank.FILE = dr.ItemArray[21].ToString();
+                        objBlank.SIGNATURE = dr.ItemArray[22].ToString();
+                        objBlank.UPLOAD = dr.ItemArray[24].ToString();
+                        objBlank.CLOSED_BY = dr.ItemArray[25].ToString();
+                        objBlank.CLOSED_SOURCE = dr.ItemArray[26].ToString();
+                        objBlank.MOBILE_NO = dr.ItemArray[27].ToString();
+                        objBlank.ALTERNATE_MOBILE_NO = dr.ItemArray[28].ToString();
+                        objBlank.REMARK = dr.ItemArray[29].ToString();
+                        objBlank.Total = TotalRec;
+                        lstComplaintSource.Add(objBlank);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+
+            }
             log.Debug(" GetComplaintDetails IP " + HelperClass.GetIPHelper() + " Proc End Time :  " + DateTime.Now.ToString());
 
 
-            if (ds.Tables.Count > 0)
-            {
-                if (ds.Tables[1].Rows.Count > 0)
-                    TotalRec = Convert.ToInt32(ds.Tables[1].Rows[0][0]);
-                else
-                    TotalRec = 0;
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    objBlank = new ModelSearchComplaint();
-                    objBlank.KNO = Convert.ToInt64(dr.ItemArray[0].ToString());
-                    objBlank.NAME = dr.ItemArray[1].ToString();
-                    objBlank.COMPLAINT_DATE = dr.ItemArray[2].ToString();
-                    objBlank.DURATION = dr.ItemArray[3].ToString();
-                    objBlank.COMPLAINT_NO = Convert.ToInt64(dr.ItemArray[4].ToString());
-                    objBlank.OFFICE_NAME = dr.ItemArray[5].ToString();
-                    objBlank.ADDRESS = dr.ItemArray[6].ToString();
-                    objBlank.COMPLAINT_TYPE = dr.ItemArray[7].ToString();
-                    objBlank.SUB_COMPLAINT_TYPE = dr.ItemArray[8].ToString();
-                    objBlank.SOURCE_NAME = dr.ItemArray[9].ToString();
-                    objBlank.COMPLAINT_status = dr.ItemArray[10].ToString();
-                    objBlank.ASSIGNED_TO = dr.ItemArray[11].ToString();
-                    objBlank.OUTAGE_TYPE = dr.ItemArray[12].ToString();
-                    objBlank.RECTIFICATION = dr.ItemArray[13].ToString();
-                    objBlank.CAUSE = dr.ItemArray[14].ToString();
-                    objBlank.METER_NO = dr.ItemArray[15].ToString();
-                    objBlank.USP_GETFRT = dr.ItemArray[16].ToString();
 
-
-                    objBlank.METER_TYPE = dr.ItemArray[17].ToString();
-                    objBlank.BEFORE_RECTIFICATION = dr.ItemArray[18].ToString();
-                    objBlank.AFTER_RECTIFICATION = dr.ItemArray[19].ToString();
-                    objBlank.ANY_ABNORMALITY = dr.ItemArray[20].ToString();
-                    objBlank.FILE = dr.ItemArray[21].ToString();
-                    objBlank.SIGNATURE = dr.ItemArray[22].ToString();
-                    objBlank.UPLOAD = dr.ItemArray[24].ToString();
-                    objBlank.CLOSED_BY = dr.ItemArray[25].ToString();
-                    objBlank.CLOSED_SOURCE = dr.ItemArray[26].ToString();
-                    objBlank.MOBILE_NO = dr.ItemArray[27].ToString();
-                    objBlank.ALTERNATE_MOBILE_NO = dr.ItemArray[28].ToString();
-                    objBlank.REMARK = dr.ItemArray[29].ToString();
-                    objBlank.Total = TotalRec;
-                    lstComplaintSource.Add(objBlank);
-                }
-
-            }
 
             return lstComplaintSource;
         }
@@ -282,7 +292,7 @@ namespace DirectComplaintRegister.DAL
             }
             return (obj);
         }
-       
+
 
 
         public static async Task<Int64> SaveComplaintRegistration(COMPLAINT modelComplaint)
@@ -506,7 +516,7 @@ namespace DirectComplaintRegister.DAL
             }
             return lstComplaintSource;
         }
-        
+
 
 
 
@@ -568,14 +578,14 @@ namespace DirectComplaintRegister.DAL
         }
 
 
-       
-   
-      
-
-       
 
 
-       
+
+
+
+
+
+
 
 
         public static List<SelectListItem> UserList(int RoleId)
@@ -597,7 +607,7 @@ namespace DirectComplaintRegister.DAL
         }
 
         #region Sourabh
-        
+
 
         public static COMPLAINT ChangeComplaintType(Int64 id, string s, int user_id)
         {
@@ -645,8 +655,8 @@ namespace DirectComplaintRegister.DAL
             return (obj);
         }
 
-     
-      
+
+
         public static COMPLAINT GetMobileEmail(Int64 id)
         {
             COMPLAINT obj = new COMPLAINT();
@@ -771,7 +781,7 @@ namespace DirectComplaintRegister.DAL
                     ModelSmsAPI modelSmsAPI_FRT = new ModelSmsAPI();
                     TextSmsAPI textSmsAPI1 = new TextSmsAPI();
                     modelSmsAPI_FRT.To = "91" + modelRemark.Assign_FRTMobile.ToString();
-                    modelSmsAPI_FRT.Smstext = "Dear FRT Complaint has been assigned to you with the details below  COMPLAINT TYPE :" + modelRemark.COMPLAINT_TYPE + " ,COMPLAINT NO: " + modelRemark.COMPLAINT_NO + " ,NAME OF CONSUMER: " + modelRemark.NAME + " ,ADDRESS OF CONSUMER: " + modelRemark.ADDRESS1 + "," + modelRemark.ADDRESS2 + "," + modelRemark.ADDRESS3 + ", Mobile No. " + modelRemark.MOBILE_NO + ", Alternate Mobile No. " +modelRemark.ALTERNATE_MOBILE_NO + " AVVNL";
+                    modelSmsAPI_FRT.Smstext = "Dear FRT Complaint has been assigned to you with the details below  COMPLAINT TYPE :" + modelRemark.COMPLAINT_TYPE + " ,COMPLAINT NO: " + modelRemark.COMPLAINT_NO + " ,NAME OF CONSUMER: " + modelRemark.NAME + " ,ADDRESS OF CONSUMER: " + modelRemark.ADDRESS1 + "," + modelRemark.ADDRESS2 + "," + modelRemark.ADDRESS3 + ", Mobile No. " + modelRemark.MOBILE_NO + ", Alternate Mobile No. " + modelRemark.ALTERNATE_MOBILE_NO + " AVVNL";
                     string response1 = await textSmsAPI1.RegisterComplaintSMS(modelSmsAPI_FRT);
                     modelRemark.SMS = modelSmsAPI_FRT.Smstext;
                     modelRemark.MOBILE_NO = modelSmsAPI_FRT.To;
@@ -917,7 +927,7 @@ namespace DirectComplaintRegister.DAL
 
         }
 
-       
+
 
     }
 }

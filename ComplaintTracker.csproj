@@ -168,6 +168,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\DirectComplaintRegister\Controllers\ComplaintCloseController.cs" />
     <Compile Include="Areas\DirectComplaintRegister\Controllers\ComplaintRegistrationController.cs" />
     <Compile Include="Areas\DirectComplaintRegister\DAL\Repository.cs" />
     <Compile Include="Areas\DirectComplaintRegister\DAL\SqlHelper.cs" />
@@ -387,6 +388,7 @@
     <Content Include="Areas\DirectComplaintRegister\Views\ComplaintRegistration\_powerOutage.cshtml" />
     <Content Include="Areas\DirectComplaintRegister\Views\ComplaintRegistration\webchat.cshtml" />
     <Content Include="Areas\DirectComplaintRegister\Views\Shared\_Layoutchat.cshtml" />
+    <Content Include="Areas\DirectComplaintRegister\Views\ComplaintClose\closeSearch.cshtml" />
     <None Include="Models\.editorconfig" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Chart.min.js" />

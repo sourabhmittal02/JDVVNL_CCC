@@ -64,6 +64,53 @@ namespace DirectComplaintRegister.DAL
             return lstOfficeCode;
         }
 
+        public static List<ModelSearchComplaint> GetComplaintDetailsForClose(ModelSearchComplaint dataObject)
+        {
+            int TotalRec = 0;
+            DataSet ds = new DataSet();
+            List<ModelSearchComplaint> lstComplaintSource = new List<ModelSearchComplaint>();
+            ModelSearchComplaint objBlank = new ModelSearchComplaint();
+            SqlParameter[] param ={
+                    new SqlParameter("@ComplaintType",dataObject.COMPLAINT_TYPE),
+                    new SqlParameter("@FromDate",dataObject.fromdate),
+                    new SqlParameter("@ToDate",dataObject.todate),
+                    new SqlParameter("@STARTROWINDEX",dataObject.start),
+                    new SqlParameter("@MAXIMUMROWS",dataObject.length)};
+
+            log.Debug(" GetComplaintDetails IP " + HelperClass.GetIPHelper() + " Proc Start Time :  " + DateTime.Now.ToString());
+            try
+            {
+                ds = SqlHelper.ExecuteDataset(HelperClass.Connection, CommandType.StoredProcedure, "GetComplaintDetails_ForClose", param);
+                if (ds.Tables.Count > 0)
+                {
+                    if (ds.Tables[1].Rows.Count > 0)
+                        TotalRec = Convert.ToInt32(ds.Tables[1].Rows[0][0]);
+                    else
+                        TotalRec = 0;
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        objBlank = new ModelSearchComplaint();
+                        objBlank.KNO = Convert.ToInt64(dr.ItemArray[1].ToString());
+                        objBlank.COMPLAINT_DATE = dr.ItemArray[2].ToString();
+                        objBlank.COMPLAINT_NO = Convert.ToInt64(dr.ItemArray[0].ToString());
+                        objBlank.Total = TotalRec;
+                        lstComplaintSource.Add(objBlank);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+
+            }
+            log.Debug(" GetComplaintDetails IP " + HelperClass.GetIPHelper() + " Proc End Time :  " + DateTime.Now.ToString());
+
+
+
+
+            return lstComplaintSource;
+        }
         public static List<ModelSearchComplaint> GetComplaintDetails(ModelSearchComplaint dataObject)
         {
             int TotalRec = 0;

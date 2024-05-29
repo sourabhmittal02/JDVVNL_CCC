@@ -59,7 +59,7 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
                     dataObject.todate = Convert.ToString(Request.Form.GetValues("todate")[0]);
                     dataObject.assigned_status = "0";
                    
-                    data = RepositoryArea.GetComplaintDetails(dataObject);
+                    data = RepositoryArea.GetComplaintDetailsForClose(dataObject);
                     int count = data.Count() > 0 ? data[0].Total : 0;
                     return Json(new { draw = dataObject.draw, recordsFiltered = count, recordsTotal = count, data = data }, JsonRequestBehavior.AllowGet);
 

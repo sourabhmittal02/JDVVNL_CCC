@@ -14,11 +14,14 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
+
+
             context.MapRoute(
                 "DirectComplaintRegister_default",
                 "DirectComplaint/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
 
             
 
@@ -27,8 +30,6 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister
                 "CloseComplaint/{controller}/{action}/{id}",
                 new { action = "closeSearch", id = UrlParameter.Optional }
             );
-
-            
         }
     }
 }

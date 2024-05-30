@@ -23,25 +23,13 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister
             );
 
 
-            context.MapRoute("CloseComplaintA", "{controller}/*close", new { action = "closeSearch" });
-            context.MapRoute("CloseComplaintB", "{controller}/searchComplaint", new { action = "closeSearch" });
-            context.MapRoute("CloseComplaintC", "{controller}/ResolveComplaint", new { action = "closeSearch" });
+            
 
             context.MapRoute(
                 "CloseComplaint",
-                "{controller}/{action}/{id}",
+                "CloseComplaint/{controller}/{action}/{id}",
                 new { action = "closeSearch", id = UrlParameter.Optional }
             );
-
-            context.MapRoute(
-                "CloseComplaint1",
-                "{controller}/close/{id}",
-                new { action = "closeSearch", id = UrlParameter.Optional }
-            );
-
-           
-
-
         }
     }
 }

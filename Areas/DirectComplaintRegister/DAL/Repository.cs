@@ -20,6 +20,7 @@ using System.Web.Security;
 using System.Web.UI.WebControls;
 using System.Windows;
 using System.Xml.Linq;
+//using ComplaintTracker.Models;
 
 namespace DirectComplaintRegister.DAL
 {
@@ -971,6 +972,31 @@ namespace DirectComplaintRegister.DAL
             }
 
             return retStatus;
+
+        }
+
+
+        public static ComplaintTracker.Models.Response ComplaintClose(string Ids)
+        {
+            ComplaintTracker.Models.Response response = new ComplaintTracker.Models.Response();
+            response.status = "-1";
+            response.message = "Error Occured in Operation.";
+
+            SqlParameter[] param ={
+                new SqlParameter("@complaint_no",Ids)};
+            try
+            {
+                SqlHelper.ExecuteNonQuery(HelperClass.Connection, CommandType.StoredProcedure, "Save_Complaint_Close_Bulk", param);
+                response.status = "0";
+                response.message = "Complaints Closed Successfully";
+            }
+            catch (Exception ex)
+            {
+                response.status = "-1";
+                response.message = "Error Occured in Operation.";
+            }
+
+            return response;
 
         }
 

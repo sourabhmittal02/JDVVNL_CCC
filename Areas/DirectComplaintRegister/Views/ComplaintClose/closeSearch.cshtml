@@ -46,11 +46,13 @@
                         selectedIds.push(data.COMPLAINT_NO);
                     }
                 });
-
-                alert('Complaint Closed Successfully ' +  JSON.stringify(selectedIds));
+                
+                close(selectedIds.join(", "));
+                //alert('Complaint Closed Successfully ' +  JSON.stringify(selectedIds));
             });
 
         });
+        
         function Search() {
             var id = 1;
             var Complainttype = 0;
@@ -150,19 +152,46 @@
                     { 'data': 'COMPLAINT_DATE' },
                     { 'data': 'COMPLAINT_NO', name: "COMPLAINT_NO", },
                     { 'data': 'KNO' },
-                ],
-                "rowCallback": function (row, data, dataIndex) {
-                    if (data['COMPLAINT_status'] == "Pending") {
-                        $(row).find('td:eq(4)').addClass('table-warning');
-                    } else if (data['COMPLAINT_status'] == "Closed") {
-                        $(row).find('td:eq(4)').addClass('table-success');
-                    }
-
-                }
-
+                ]
             });
         }
 
+
+        function close(closeIds) {
+
+            if (closeIds == '') {
+                //swal("error occured!", "Select at least one Complaint no. to close.", "alert");
+                swal({
+                    title: "Error alert!",
+                    text: "Select at least one Complaint no. to close.",
+                    timer: 2000
+                });
+                return;
+            }
+
+
+            var TeamDetailPostBackURL = '/ComplaintClose/Close';
+
+
+            $.ajax({
+                type: "GET",
+                url: TeamDetailPostBackURL,
+                contentType: "application/json; charset=utf-8",
+                data: { 'closeIds' : closeIds },
+                datatype: "json",
+                success: function (data) {
+                    if (data.status == 1) {
+                        swal("Good job!", data.message, "success");
+                    }
+                    else {
+                        swal("error occured!", data.message, "error");
+                    }
+                },
+                error: function (data) {
+                    swal("Dynamic content load failed.!", "error");
+                }
+            });
+        }
 
     </script>
 }

@@ -13,6 +13,7 @@ using System.Text;
 using static ComplaintTracker.JqueryDatatableParam;
 using ComplaintTracker.DAL;
 using ComplaintTracker.Handler;
+//using ComplaintTracker.Models;
 
 namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
 {
@@ -74,6 +75,23 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
             {
                 return Json("error", JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [HttpGet]
+        public JsonResult Close(string closeIds)
+        {
+            ComplaintTracker.Models.Response data = RepositoryArea.ComplaintClose(closeIds);
+
+            if (data.status == "-1")
+            {
+                data.message = "Some error occured in close Complaint No. " + closeIds ;
+            }
+            else
+            {
+                data.message = "Complaint No. " + closeIds + " closed Successfully ...!";
+            }
+
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
 
     }

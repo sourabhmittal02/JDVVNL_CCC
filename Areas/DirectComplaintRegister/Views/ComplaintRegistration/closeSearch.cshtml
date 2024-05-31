@@ -1,0 +1,298 @@
+﻿@model ComplaintTracker.Models.COMPLAINT
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/DirectComplaintRegister/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Index</h2>
+
+
+
+<style type="text/css">
+
+    #DPaging_previous a {
+        background-color: transparent;
+    }
+
+    #DPaging_next a {
+        background-color: transparent;
+    }
+
+    .paginate_button.active .page-link {
+        background-color: grey !important;
+        border: 1px solid black !important;
+    }
+</style>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a.toggle-vis').on('click', function (e) {
+                e.preventDefault();
+                var table = $('#datatables-buttons').DataTable();
+                var column = table.column($(this).attr('data-column'));
+                column.visible(!column.visible());
+            });
+            document.getElementById("fromDate").value = "";
+            document.getElementById("toDate").value = "";
+
+            $('#btnClose').on('click', function (e) {
+                var selectedIds = [];
+                e.preventDefault();
+                $('.select-checkbox').each(function () {
+                    if ($(this).prop("checked")) {
+                        data = $('#datatables-buttons').DataTable().row($(this).parents('tr')).data();
+                        selectedIds.push(data.COMPLAINT_NO);
+                    }
+                });
+                
+                close(selectedIds.join(", "));
+                //alert('Complaint Closed Successfully ' +  JSON.stringify(selectedIds));
+            });
+
+        });
+        
+        function Search() {
+            var id = 1;
+            var Complainttype = 0;
+
+            var dataObject = new Object();
+            if ($('#All').prop('checked')) {
+                Complainttype = 0;
+                $('h5').text('Complaint Type => ALL');
+
+            } else if ($('#BillRelated').prop('checked')) {
+                Complainttype = 2;
+                $('h5').text('Complaint Type => BillRelated');
+            } else if ($('#MeterRelated').prop('checked')) {
+                Complainttype = 3;
+                $('h5').text('Complaint Type => Meter Related');
+            } else if ($('#NoCurrentComplaint').prop('checked')) {
+                Complainttype = 4;
+                $('h5').text('Complaint Type => No Current Complaint');
+            } else if ($('#OtherComplaint').prop('checked')) {
+                Complainttype = 5;
+                $('h5').text('Complaint Type => Other Complaint');
+            } else if ($('#SafetyRelated').prop('checked')) {
+                Complainttype = 6;
+                $('h5').text('Complaint Type => Safety Related');
+            } else if ($('#ServiceConnectionRelated').prop('checked')) {
+                Complainttype = 7;
+                $('h5').text('Complaint Type => Service Connection Related');
+            } else if ($('#TransformerBurnt').prop('checked')) {
+                Complainttype = 8;
+                $('h5').text('Complaint Type => Transformer Burnt');
+            } else if ($('#TheftInformation').prop('checked')) {
+                Complainttype = 9;
+                $('h5').text('Complaint Type => Theft Information');
+            } else if ($('#VoltageRelated').prop('checked')) {
+                Complainttype = 10;
+                $('h5').text('Complaint Type => Voltage Related');
+            } else if ($('#ServiceLineRelated').prop('checked')) {
+                Complainttype = 11;
+                $('h5').text('Complaint Type => Service Line Related');
+            } else if ($('#PoleRelated').prop('checked')) {
+                Complainttype = 12;
+                $('h5').text('Complaint Type => Pole Related');
+            } else if ($('#HarassmentByDiscomEmployee').prop('checked')) {
+                Complainttype = 13;
+                $('h5').text('Complaint Type => Harassment By Discom Employee');
+            } else if ($('#ServiceRequest').prop('checked')) {
+                Complainttype = 14;
+                $('h5').text('Complaint Type => Service Request');
+            }
+            $('#ComplaintTypeId').val(Complainttype);
+            dataObject.fromdate = $('#fromDate').val();
+            dataObject.todate = $('#toDate').val();
+            dataObject.Complaint_Type = Complainttype;
+            var RoleId = 1;
+            myTable = $('#datatables-buttons').dataTable({
+                "ajax": {
+                    "url": "/ComplaintRegistration/GetComplaintSearch/",
+                    "type": "POST",
+                    "datatype": "json",
+                    "data": function (d) {
+                        d.fromdate = dataObject.fromdate;
+                        d.todate = dataObject.todate;
+                        d.Complaint_Type = dataObject.Complaint_Type;
+                    }
+                },
+                "destroy": true,
+                "lengthMenu": [[10, 20, 50, 100, 150], [10, 20, 50, 100, 150]],
+                "pageLength": 10,
+                "processing": true,
+                "serverSide": true,
+                scrollY: true,
+                scrollX: true,
+                "searching": false,
+                ordering: false,
+                "language": {
+                    "processing": '<i class="fa fa-spinner fa-spin fa-4x fa-fw" style="color:#3B3B96;"></i><span class="sr-only">Loading...</span>'
+                },
+
+                dom: 'Blfrtip',
+                buttons: [
+                    'colvis'
+                ],
+
+                "columns": [
+                    {
+                        targets: 0,
+                        data: null,
+                        className: 'text-center',
+                        searchable: false,
+                        orderable: false,
+                        render: function (data, type, full, meta) {
+                            return '<input type="checkbox" class="select-checkbox" name="check" value="' + data.COMPLAINT_NO + '">';
+                        },
+                        width: "5%"
+                    },
+                    { 'data': "COMPLAINT_NO", name: "COMPLAINT_NO", width: "60px", className: "dt-center", visible: false },
+                    { 'data': 'COMPLAINT_DATE' },
+                    { 'data': 'COMPLAINT_NO', name: "COMPLAINT_NO", },
+                    { 'data': 'KNO' },
+                ]
+            });
+        }
+
+
+        function close(closeIds) {
+
+            if (closeIds == '') {
+                //swal("error occured!", "Select at least one Complaint no. to close.", "alert");
+                swal({
+                    title: "Error alert!",
+                    text: "Select at least one Complaint no. to close.",
+                    timer: 2000
+                });
+                return;
+            }
+
+
+            var TeamDetailPostBackURL = '/ComplaintRegistration/Close';
+
+
+            $.ajax({
+                type: "GET",
+                url: TeamDetailPostBackURL,
+                contentType: "application/json; charset=utf-8",
+                data: { 'closeIds' : closeIds },
+                datatype: "json",
+                success: function (data) {
+                    swal("Good job!", data.message, "success");
+                },
+                error: function (data) {
+                    swal("Dynamic content load failed.!", "error");
+                }
+            });
+        }
+
+    </script>
+}
+<div class="header">
+    <h1 class="header-title">
+        Search and Close Complaint
+    </h1>
+    <nav aria-label="breadcrumb">
+
+    </nav>
+</div>
+@if (TempData["AlertMessage"] != null)
+{
+    <script type="text/javascript">
+        var msg = '@TempData["AlertMessage"]'
+        swal("Good job!",msg, "success");
+    </script>
+}
+
+
+<div class="row">
+    @{
+        var fromDate = (DateTime)ViewBag.fromDate;
+        var toDate = (DateTime)ViewBag.toDate;
+
+    }
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Search Complaint</h4>
+                    @*<h6 class="card-subtitle text-muted">jQuery Plugin to make masks on form fields.</h6>*@
+
+                </div>
+                <div class="card-body">
+
+                    @using (Html.BeginForm("ExportToExcelRawComplaint", "Complaint", FormMethod.Post))
+                    {
+
+
+                        <div class="row mb-2">
+                            <div class="col-12 col-lg-3">
+                                @Html.TextBox("fromDate", string.Format("{0:yyyy-MM-dd}", fromDate), new { @class = "form-control mb-1", type = "date" })
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                @Html.TextBox("toDate", string.Format("{0:yyyy-MM-dd}", toDate), new { @class = "form-control mb-1", type = "date" })
+                            </div>
+
+                        </div>
+                        <!--Complaint Type-->
+                        <div class="row mb-2">
+                            <div class="col-12 col-lg-12">
+                                <h5 class="m-1  text-secondary fw-bold" id="hcomplaintType">Complaint Type => ALL</h5>
+                                <input type="hidden" id="ComplaintTypeId" name="ComplaintTypeId" value="0">
+                                <div class="btn-group mb-1" style="overflow:hidden;width:100%">
+                                    @foreach (var item in Model.ComplaintTypeCollection)
+                                    {
+                                        if (item.ComplaintTypeId <= 8)
+                                        {
+                                            <input class="btn-check" type="radio" name="options" id="@item.ComplaintType.Replace(" ", "")" autocomplete="off">
+                                            <label class="btn text-white" for="@item.ComplaintType.Replace(" ", "")" style="background-color:@item.ComplaintTileColor">@item.ComplaintType</label>
+                                        }
+                                    }
+                                </div>
+                                <div class="btn-group" style="overflow:hidden;width:100%">
+                                    @foreach (var item in Model.ComplaintTypeCollection)
+                                    {
+                                        if (item.ComplaintTypeId > 8)
+                                        {
+                                            <input class="btn-check" type="radio" name="options" id="@item.ComplaintType.Replace(" ", "")" autocomplete="off">
+                                            <label class="btn text-white" for="@item.ComplaintType.Replace(" ", "")" style="background-color:@item.ComplaintTileColor">@item.ComplaintType</label>
+                                        }
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-1">
+                            <div class="col-12 col-lg-12">
+                                <div>
+                                    <input type="button" value="Search" class="btn btn-primary btn-block" id="btnSearch" onclick="Search()" name="btnSearch" />
+                                    <input type="button" value="Close Complaint" class="btn btn-google btn-block" id="btnClose" name="btnClose" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row mb-2">
+                        <table id="datatables-buttons" class="table table-bordered table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Close</th>
+                                    <th>Complaint Date</th>
+                                    <th>Complaint No.</th>
+                                    <th></th>
+                                    <th>K.No.</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadRemarkPopUp">
+
+</div>
+

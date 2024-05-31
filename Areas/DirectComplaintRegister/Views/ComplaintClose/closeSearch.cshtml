@@ -109,7 +109,7 @@
             var RoleId = 1;
             myTable = $('#datatables-buttons').dataTable({
                 "ajax": {
-                    "url": "/ComplaintClose/GetComplaintSearch/",
+                    "url": "/ComplaintRegistration/GetComplaintSearch/",
                     "type": "POST",
                     "datatype": "json",
                     "data": function (d) {
@@ -170,7 +170,7 @@
             }
 
 
-            var TeamDetailPostBackURL = '/ComplaintClose/Close';
+            var TeamDetailPostBackURL = '/ComplaintRegistration/Close';
 
 
             $.ajax({
@@ -180,12 +180,7 @@
                 data: { 'closeIds' : closeIds },
                 datatype: "json",
                 success: function (data) {
-                    if (data.status == 1) {
                         swal("Good job!", data.message, "success");
-                    }
-                    else {
-                        swal("error occured!", data.message, "error");
-                    }
                 },
                 error: function (data) {
                     swal("Dynamic content load failed.!", "error");

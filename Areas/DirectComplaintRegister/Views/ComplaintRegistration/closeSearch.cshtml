@@ -34,6 +34,17 @@
                 var column = table.column($(this).attr('data-column'));
                 column.visible(!column.visible());
             });
+
+                var $select = $('#ddlOfficecode').select2({
+                    allowClear: true,
+                });
+
+
+                $select.on('change', function () {
+                    $(this).trigger('blur');
+                });
+
+
             document.getElementById("fromDate").value = "";
             document.getElementById("toDate").value = "";
 
@@ -56,6 +67,18 @@
         function Search() {
             var id = 1;
             var Complainttype = 0;
+
+            var selectedOffice = $("#ddlOfficecode").val();
+            if (selectedOffice == 0) {
+                swal({
+                    title: "Error alert!",
+                    text: "Select Office Code",
+                    timer: 2000
+                });
+                return;
+            }
+
+
 
             var dataObject = new Object();
             if ($('#All').prop('checked')) {
@@ -103,9 +126,11 @@
                 $('h5').text('Complaint Type => Service Request');
             }
             $('#ComplaintTypeId').val(Complainttype);
+
             dataObject.fromdate = $('#fromDate').val();
             dataObject.todate = $('#toDate').val();
             dataObject.Complaint_Type = Complainttype;
+            dataObject.OFFICE_CODE_ID = selectedOffice;
             var RoleId = 1;
             myTable = $('#datatables-buttons').dataTable({
                 "ajax": {
@@ -116,6 +141,8 @@
                         d.fromdate = dataObject.fromdate;
                         d.todate = dataObject.todate;
                         d.Complaint_Type = dataObject.Complaint_Type;
+                        d.OFFICE_CODE_ID = dataObject.OFFICE_CODE_ID;
+
                     }
                 },
                 "destroy": true,
@@ -234,7 +261,9 @@
                             <div class="col-12 col-lg-3">
                                 @Html.TextBox("toDate", string.Format("{0:yyyy-MM-dd}", toDate), new { @class = "form-control mb-1", type = "date" })
                             </div>
-
+                            <div class="col-12 col-lg-3">
+                                @Html.DropDownListFor(x => Model.OFFICE_CODE_ID, new SelectList(Model.OfficeCodeCollection, "OfficeId", "OfficeCode"), "Select Office Code", new { @class = "form-control", id = "ddlOfficecode", required = "required" })
+                            </div>
                         </div>
                         <!--Complaint Type-->
                         <div class="row mb-2">

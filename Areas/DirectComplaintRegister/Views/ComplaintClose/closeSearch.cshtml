@@ -149,8 +149,8 @@
                         width: "5%"
                     },
                     { 'data': "COMPLAINT_NO", name: "COMPLAINT_NO", width: "60px", className: "dt-center", visible: false },
-                    { 'data': 'COMPLAINT_NO', name: "COMPLAINT_NO", },
                     { 'data': 'COMPLAINT_DATE' },
+                    { 'data': 'COMPLAINT_NO', name: "COMPLAINT_NO", },
                     { 'data': 'KNO' },
                 ]
             });
@@ -234,60 +234,62 @@
                             <div class="col-12 col-lg-3">
                                 @Html.TextBox("toDate", string.Format("{0:yyyy-MM-dd}", toDate), new { @class = "form-control mb-1", type = "date" })
                             </div>
+                            <div class="col-12 col-lg-3">
+                                @Html.DropDownListFor(x => Model.OFFICE_CODE_ID, new SelectList(Model.OfficeCodeCollection, "OfficeId", "OfficeCode"), "Select Office Code", new { @class = "form-control", id = "ddlOfficecode", required = "required" })
+                            </div>
+                            </div>
+                            <!--Complaint Type-->
+                            <div class="row mb-2">
+                                <div class="col-12 col-lg-12">
+                                    <h5 class="m-1  text-secondary fw-bold" id="hcomplaintType">Complaint Type => ALL</h5>
+                                    <input type="hidden" id="ComplaintTypeId" name="ComplaintTypeId" value="0">
+                                    <div class="btn-group mb-1" style="overflow:hidden;width:100%">
+                                        @foreach (var item in Model.ComplaintTypeCollection)
+                                        {
+                                            if (item.ComplaintTypeId <= 8)
+                                            {
+                                                <input class="btn-check" type="radio" name="options" id="@item.ComplaintType.Replace(" ", "")" autocomplete="off">
+                                                <label class="btn text-white" for="@item.ComplaintType.Replace(" ", "")" style="background-color:@item.ComplaintTileColor">@item.ComplaintType</label>
+                                            }
+                                        }
+                                    </div>
+                                    <div class="btn-group" style="overflow:hidden;width:100%">
+                                        @foreach (var item in Model.ComplaintTypeCollection)
+                                        {
+                                            if (item.ComplaintTypeId > 8)
+                                            {
+                                                <input class="btn-check" type="radio" name="options" id="@item.ComplaintType.Replace(" ", "")" autocomplete="off">
+                                                <label class="btn text-white" for="@item.ComplaintType.Replace(" ", "")" style="background-color:@item.ComplaintTileColor">@item.ComplaintType</label>
+                                            }
+                                        }
+                                    </div>
+                                </div>
 
-                        </div>
-                        <!--Complaint Type-->
-                        <div class="row mb-2">
-                            <div class="col-12 col-lg-12">
-                                <h5 class="m-1  text-secondary fw-bold" id="hcomplaintType">Complaint Type => ALL</h5>
-                                <input type="hidden" id="ComplaintTypeId" name="ComplaintTypeId" value="0">
-                                <div class="btn-group mb-1" style="overflow:hidden;width:100%">
-                                    @foreach (var item in Model.ComplaintTypeCollection)
-                                    {
-                                        if (item.ComplaintTypeId <= 8)
-                                        {
-                                            <input class="btn-check" type="radio" name="options" id="@item.ComplaintType.Replace(" ", "")" autocomplete="off">
-                                            <label class="btn text-white" for="@item.ComplaintType.Replace(" ", "")" style="background-color:@item.ComplaintTileColor">@item.ComplaintType</label>
-                                        }
-                                    }
-                                </div>
-                                <div class="btn-group" style="overflow:hidden;width:100%">
-                                    @foreach (var item in Model.ComplaintTypeCollection)
-                                    {
-                                        if (item.ComplaintTypeId > 8)
-                                        {
-                                            <input class="btn-check" type="radio" name="options" id="@item.ComplaintType.Replace(" ", "")" autocomplete="off">
-                                            <label class="btn text-white" for="@item.ComplaintType.Replace(" ", "")" style="background-color:@item.ComplaintTileColor">@item.ComplaintType</label>
-                                        }
-                                    }
-                                </div>
                             </div>
 
-                        </div>
-
-                        <div class="row mb-1">
-                            <div class="col-12 col-lg-12">
-                                <div>
-                                    <input type="button" value="Search" class="btn btn-primary btn-block" id="btnSearch" onclick="Search()" name="btnSearch" />
-                                    <input type="button" value="Close Complaint" class="btn btn-google btn-block" id="btnClose" name="btnClose" />
+                            <div class="row mb-1">
+                                <div class="col-12 col-lg-12">
+                                    <div>
+                                        <input type="button" value="Search" class="btn btn-primary btn-block" id="btnSearch" onclick="Search()" name="btnSearch" />
+                                        <input type="button" value="Close Complaint" class="btn btn-google btn-block" id="btnClose" name="btnClose" />
+                                    </div>
                                 </div>
                             </div>
+                            }
+                            <div class="row mb-2">
+                                <table id="datatables-buttons" class="table table-bordered table-hover" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Close</th>
+                                            <th>Complaint Date</th>
+                                            <th>Complaint No.</th>
+                                            <th></th>
+                                            <th>K.No.</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
-                    }
-                    <div class="row mb-2">
-                        <table id="datatables-buttons" class="table table-bordered table-hover" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Close</th>
-                                    <th></th>
-                                    <th>Complaint No.</th>
-                                    <th>Complaint Date</th>
-                                    <th>K.No.</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

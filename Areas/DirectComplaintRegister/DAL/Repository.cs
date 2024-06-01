@@ -927,6 +927,7 @@ namespace DirectComplaintRegister.DAL
                     new SqlParameter("@ComplaintType",dataObject.COMPLAINT_TYPE),
                     new SqlParameter("@FromDate",dataObject.fromdate),
                     new SqlParameter("@ToDate",dataObject.todate),
+                    new SqlParameter("@OFFICE_ID",dataObject.OFFICE_ID),
                     new SqlParameter("@STARTROWINDEX",dataObject.start),
                     new SqlParameter("@MAXIMUMROWS",dataObject.length)};
 

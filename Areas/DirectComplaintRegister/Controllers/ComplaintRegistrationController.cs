@@ -294,6 +294,7 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
             ViewBag.toDate = DateTime.Now.AddDays(1);
             ViewBag.RoleID = Session["Roll_ID"];
             objComplaint.ComplaintTypeCollection = Repository.GetComplaintTypeList("0");
+            objComplaint.OfficeCodeCollection = Repository.GetOfficeList_Create("3");
             return View(objComplaint);
         }
 
@@ -317,7 +318,7 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
                     dataObject.KNO = 0;
                     dataObject.MOBILE_NO = "0";
                     dataObject.COMPLAINT_TYPE = Convert.ToString(Request.Form.GetValues("COMPLAINT_TYPE")[0]);
-                    dataObject.OFFICE_ID = "0";
+                    dataObject.OFFICE_ID = Convert.ToString(Request.Form.GetValues("OFFICE_CODE_ID")[0]); ;
                     dataObject.COMPLAINT_status = "1";
                     dataObject.COMPLAINT_SOURCE = "0";
                     dataObject.fromdate = Convert.ToString(Request.Form.GetValues("fromdate")[0]);

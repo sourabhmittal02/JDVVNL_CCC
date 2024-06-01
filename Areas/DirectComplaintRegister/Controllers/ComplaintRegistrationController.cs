@@ -294,7 +294,7 @@ namespace ComplaintTracker.Areas.DirectComplaintRegister.Controllers
             ViewBag.toDate = DateTime.Now.AddDays(1);
             ViewBag.RoleID = Session["Roll_ID"];
             objComplaint.ComplaintTypeCollection = Repository.GetComplaintTypeList("0");
-            objComplaint.OfficeCodeCollection = Repository.GetOfficeList_Create("3");
+            objComplaint.OfficeCodeCollection = Repository.GetOfficeList("3");
             return View(objComplaint);
         }
 

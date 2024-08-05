@@ -392,8 +392,8 @@ namespace ComplaintTracker.DAL
                     TextSmsAPI textSmsAPI1 = new TextSmsAPI();
                     modelSmsAPIOWN.id = "0";
                     modelSmsAPIOWN.to = modelComplaint.MOBILE_NO.ToString();
-                    modelSmsAPIOWN.smsText = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए \"\"VIDYUT SAATHI\"\" ऐप का प्रयोग करें।\r\nजोधपुर डिस्कॉम।";
-                    modelSmsAPIOWN.templateid = "1307160688860548923";
+                    modelSmsAPIOWN.smsText = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए https://bit.ly/JDVVNLCCC का प्रयोग करें। जोधपुर डिस्कॉम।";
+                    modelSmsAPIOWN.templateid = "1307171445679499387";
                     string response1 = await textSmsAPI1.RegisterComplaintSendSMSWeb(modelSmsAPIOWN);
 
                     modelSmsAPIOWN.smsText = "प्रिय उपभोक्ता, शिकायत क्रमांक " + retStatus + " फाॅल्ट रेक्टिफिकेषन टीम को निर्दिष्ट  कर दी गई है।\r\nजोधपुर डिस्कॉम।";
@@ -501,8 +501,8 @@ namespace ComplaintTracker.DAL
                     TextSmsAPI textSmsAPI1 = new TextSmsAPI();
                     modelSmsAPIOWN.id = "0";
                     modelSmsAPIOWN.to = modelComplaint.MOBILE_NO.ToString();
-                    modelSmsAPIOWN.smsText = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए \"\"VIDYUT SAATHI\"\" ऐप का प्रयोग करें।\r\nजोधपुर डिस्कॉम।";
-                    modelSmsAPIOWN.templateid = "1307160688860548923";
+                    modelSmsAPIOWN.smsText = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए https://bit.ly/JDVVNLCCC का प्रयोग करें। जोधपुर डिस्कॉम।";
+                    modelSmsAPIOWN.templateid = "1307171445679499387";
                     string response1 = await textSmsAPI1.RegisterComplaintSendSMSWeb(modelSmsAPIOWN);
                     log.Information(response1.ToString());
 
@@ -664,8 +664,8 @@ namespace ComplaintTracker.DAL
                     TextSmsAPI textSmsAPI = new TextSmsAPI();
 
                     modelSmsAPI.To = modelComplaint.MOBILE_NO.ToString();
-                    modelSmsAPI.Smstext = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए \"\"VIDYUT SAATHI\"\" ऐप का प्रयोग करें।\r\nजोधपुर डिस्कॉम।";
-                    modelSmsAPI.Smstemplete = "1307160688860548923";
+                    modelSmsAPI.Smstext = "प्रिय उपभोक्ता, आपका शिकायत क्रमांक " + retStatus + " दिनांक " + DateTime.Now.ToString("dd-MMM-yyyy") + " है। विद्युत सम्बन्धित शिकायत एवं अन्य सुविधाओं के लिए https://bit.ly/JDVVNLCCC का प्रयोग करें। जोधपुर डिस्कॉम।";
+                    modelSmsAPI.Smstemplete = "1307171445679499387";
                     string response = await textSmsAPI.RegisterComplaintSMS(modelSmsAPI);
                     modelComplaint.SMS = modelSmsAPI.Smstext;
                     log.Information(response.ToString());

@@ -71,6 +71,7 @@
     //});
 
     function getDetailsofKo(kno) {
+        debugger;
         var officecode = '0';
         var consumerType = '1';
         var searchparm = kno ;
@@ -141,6 +142,7 @@
                             //$('#ADDRESS2').prop('disabled', true);
 
                             //$('#ADDRESS3').prop('disabled', true);
+                            $('#searchKno').val(item.KNO);
                             $("#ddlOfficecode > option").each(function () {
                                 let result = this.value.slice(0, 7);
                                 if (result == item.KNO.slice(0, 7)) {

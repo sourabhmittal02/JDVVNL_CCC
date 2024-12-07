@@ -718,7 +718,7 @@ namespace ComplaintTracker.Controllers
         }
 
         [HttpGet]
-        public ActionResult checkPowerOutage(int officecode)
+        public ActionResult checkPowerOutage(string officecode)
         {
             List<ModelPowerOutageList> modelPowerOutageLists    = new List<ModelPowerOutageList>();
             ModelPowerOutageList modelPowerOutages = new ModelPowerOutageList();

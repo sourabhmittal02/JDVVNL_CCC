@@ -97,15 +97,24 @@
             var count = 0;
             $('#ddlOfficecode').change(function () {
                 var selectedOffice = $("#ddlOfficecode").val();
-                if (selectedOffice.length > 0) {
+                
+                var kno = $('#txtsearchKno').val();
+                //alert(kno);
+                //debugger;
+                if (kno.length > 1) {
+                    checkPowerOutage(kno);
+                }
+                else if (selectedOffice.length > 0) {
                     $('#SDO_CODE').val(selectedOffice);
                     filljendd(selectedOffice);
                     fillArea(selectedOffice);
+                    // Get the Login Name value and trim it
                     checkPowerOutage(selectedOffice);
                 }
             });
 
             function checkPowerOutage(officecode) {
+                alert(officecode);
                 $.ajax({
                     type: "GET",
                     url: '/Complaint/checkPowerOutage',
@@ -245,7 +254,7 @@
 
 
             $('#btnSearch').click(function () {
-
+      
             var officecode = $("#ddlOfficecode").val();
                 if (officecode == '')
                     officecode = 0;

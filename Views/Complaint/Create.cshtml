@@ -102,6 +102,8 @@
                 //alert(kno);
                 //debugger;
                 if (kno.length > 1) {
+                    filljendd(selectedOffice);
+                    fillArea(selectedOffice);
                     checkPowerOutage(kno);
                 }
                 else if (selectedOffice.length > 0) {
@@ -114,7 +116,7 @@
             });
 
             function checkPowerOutage(officecode) {
-                alert(officecode);
+                //alert(officecode);
                 $.ajax({
                     type: "GET",
                     url: '/Complaint/checkPowerOutage',
